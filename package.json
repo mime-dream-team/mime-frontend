@@ -1,0 +1,13 @@
+{
+  "name": "World-Wide-Whiteboard",
+  "version": "1.0.0",
+  "description": "socket.io workshop @ Fullstack Academy",
+  "main": "index.js",
+  "author": "instructors@fullstackacademy.com",
+  "scripts": {
+      "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.12.3"
+  }
+}
