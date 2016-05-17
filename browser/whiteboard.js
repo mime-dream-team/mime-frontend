@@ -29,10 +29,12 @@ window.whiteboard = new window.EventEmitter();
     var sketch = document.querySelector('#sketch');
     var sketchStyle = getComputedStyle(sketch);
 
-    canvas.width = parseInt(sketchStyle.getPropertyValue('width'));
-    canvas.height = parseInt(sketchStyle.getPropertyValue('height'));
+    var pixelRatio = window.devicePixelRatio || 1;
+    canvas.width = parseInt(sketchStyle.getPropertyValue('width')) * pixelRatio;
+    canvas.height = parseInt(sketchStyle.getPropertyValue('height')) * pixelRatio;
 
     var ctx = canvas.getContext('2d');
+    ctx.scale(pixelRatio, pixelRatio);
 
     ctx.lineWidth = 5;
     ctx.lineJoin = 'round';
