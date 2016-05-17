@@ -1,8 +1,11 @@
+<!doctype html>
 <html>
+    <head>
+        <link href="style.css" type="text/css" rel="stylesheet">    
+    </head>
     <body>
-
-        <link href="style.css" type="text/css" rel="stylesheet" />
-
+        <canvas id="paint"></canvas>
+      
         <div id="color-selector">
             <div class="marker selected" id="black"></div>
             <div class="marker" id="purple"></div>
@@ -14,14 +17,8 @@
             <div class="marker" id="brown"></div>
         </div>
 
-        <div id="sketch">
-            <canvas id="paint"></canvas>
-        </div>
-
         <script src="event-emitter.js"></script>
         <script src="whiteboard.js"></script>
         <script src="app.js"></script>
-
     </body>
-
 </html>
