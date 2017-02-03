@@ -1,14 +1,10 @@
 var path = require('path');
-
-var http = require('http');
-var server = http.createServer();
-
 var express = require('express');
-var app = express();
+var app = express(); // the app returned by express() is a JavaScript Function. Not something we can pass to our sockets!
 
-server.on('request', app);
-
-server.listen(1337, function () {
+// app.listen() returns an http.Server object
+// http://expressjs.com/en/4x/api.html#app.listen
+var server = app.listen(1337, function () {
     console.log('The server is listening on port 1337!');
 });
 
