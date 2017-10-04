@@ -1,10 +1,10 @@
-var path = require('path');
-var express = require('express');
-var app = express(); // the app returned by express() is a JavaScript Function. Not something we can pass to our sockets!
+const path = require('path');
+const express = require('express');
+const app = express(); // the app returned by express() is a JavaScript Function. Not something we can pass to our sockets!
 
 // app.listen() returns an http.Server object
 // http://expressjs.com/en/4x/api.html#app.listen
-var server = app.listen(1337, function () {
+const server = app.listen(1337, function () {
     console.log(`Listening on http://localhost:${server.address().port}`);
 });
 
