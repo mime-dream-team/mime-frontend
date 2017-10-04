@@ -17,6 +17,14 @@ export const events = new EventEmitter
 const canvas = document.createElement('canvas')
 const ctx = canvas.getContext('2d')
 
+/**
+ * Draw a line on the whiteboard.
+ * 
+ * @param {{x,y}|[x, y]} start start point
+ * @param {{x, y}|[x, y]} end end point
+ * @param {String} strokeColor color of the line
+ * @param {bool} shouldBroadcast whether to emit an event for this draw
+ */
 function draw(start, end, strokeColor, shouldBroadcast) {
     // Draw the line between the start and end positions
     // that is colored with the given color.
@@ -30,7 +38,7 @@ function draw(start, end, strokeColor, shouldBroadcast) {
     // If shouldBroadcast is truthy, we will emit a draw event to listeners
     // with the start, end and color data.
     if (shouldBroadcast) {
-        events.emit('draw', start, end, strokeColor);
+        events.emit('draw', {start, end, strokeColor});
     }
 };
 
