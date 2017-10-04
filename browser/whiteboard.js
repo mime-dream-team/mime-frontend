@@ -135,8 +135,6 @@ function resize() {
     ctx.lineCap = 'round';     
 }
 
-let drawing = false;
-
 function setupCanvas() {
     // Set the size of the canvas and attach a listener
     // to handle resizing.
