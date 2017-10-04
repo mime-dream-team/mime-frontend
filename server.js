@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require('express');
-const app = express(); // the app returned by express() is a JavaScript Function. Not something we can pass to our sockets!
+const app = express();
 
 // app.listen() returns an http.Server object
 // http://expressjs.com/en/4x/api.html#app.listen
