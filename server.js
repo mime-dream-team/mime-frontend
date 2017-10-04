@@ -5,8 +5,14 @@ var app = express(); // the app returned by express() is a JavaScript Function. 
 // app.listen() returns an http.Server object
 // http://expressjs.com/en/4x/api.html#app.listen
 var server = app.listen(1337, function () {
-    console.log('The server is listening on port 1337!');
+    console.log(`Listening on http://localhost:${server.address().port}`);
 });
+
+// The webpack dev middleware builds and serves our bundle
+// directly from memory. This has the advantage of never serving
+// a partial bundle (if, for example, you reload in the middle of
+// a compilation).
+app.use(require('./webpack-middleware'))
 
 app.use(express.static(path.join(__dirname, 'browser')));
 

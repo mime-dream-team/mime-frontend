@@ -5,9 +5,17 @@
   "main": "index.js",
   "author": "instructors@fullstackacademy.com",
   "scripts": {
-      "start": "node server.js"
+    "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.12.3"
+    "express": "^4.12.3",
+    "webpack-dev-middleware": "^1.12.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "webpack": "^3.6.0"
   }
 }
