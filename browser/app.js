@@ -1,7 +1,7 @@
 // Import from the module './whiteboard':
 //   The default export, naming it draw,
 //   An export named `events`, calling it `whiteboard`.
-import draw, {events as whiteboard} from './whiteboard'
+import whiteboard, {draw} from './whiteboard'
 
 // Example of listening to draw events:
 //   (This logging will probably get really annoying):

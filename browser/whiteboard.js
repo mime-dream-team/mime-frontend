@@ -10,8 +10,9 @@
 
 import {EventEmitter} from 'events'
 
-export default draw
-export const events = new EventEmitter
+const events = new EventEmitter
+
+export default events
 
 //// Canvas setup
 const canvas = document.createElement('canvas')
@@ -20,26 +21,25 @@ const ctx = canvas.getContext('2d')
 /**
  * Draw a line on the whiteboard.
  * 
- * @param {{x,y}|[x, y]} start start point
- * @param {{x, y}|[x, y]} end end point
+ * @param {[Number, Number]} start start point
+ * @param {[Number, Number]} end end point
  * @param {String} strokeColor color of the line
  * @param {bool} shouldBroadcast whether to emit an event for this draw
  */
-function draw(start, end, strokeColor, shouldBroadcast) {
+export function draw(start, end, strokeColor='black', shouldBroadcast=true) {
     // Draw the line between the start and end positions
     // that is colored with the given color.
     ctx.beginPath();
-    ctx.strokeStyle = strokeColor || 'black';
-    ctx.moveTo(start.x, start.y);
-    ctx.lineTo(end.x, end.y);
+    ctx.strokeStyle = strokeColor;
+    ctx.moveTo(...start);
+    ctx.lineTo(...end);
     ctx.closePath();
     ctx.stroke();
 
     // If shouldBroadcast is truthy, we will emit a draw event to listeners
     // with the start, end and color data.
-    if (shouldBroadcast) {
+    shouldBroadcast &&
         events.emit('draw', {start, end, strokeColor});
-    }
 };
 
 // State
@@ -89,6 +89,7 @@ function setupColorPicker() {
 
     picker.addEventListener('click', ({target}) => {
         color = target.dataset.color
+        if (!color) return
         const current = picker.querySelector('.selected')
         current && current.classList.remove('selected')
         target.classList.add('selected')
@@ -142,33 +143,24 @@ function setupCanvas() {
     resize()
     window.addEventListener('resize', resize)     
 
-    canvas.addEventListener('mousedown', function (e) {
-        drawing = true;
-        currentMousePosition.x = e.pageX - this.offsetLeft;
-        currentMousePosition.y = e.pageY - this.offsetTop;
+    window.addEventListener('mousedown', function (e) {
+        currentMousePosition = pos(e)
     });
 
-    canvas.addEventListener('mouseup', function () {
-        drawing = false;
-    });
-
-    canvas.addEventListener('mousemove', function (e) {
-        if (!drawing) return;
-
-        lastMousePosition.x = currentMousePosition.x;
-        lastMousePosition.y = currentMousePosition.y;
-
-        currentMousePosition.x = e.pageX - this.offsetLeft;
-        currentMousePosition.y = e.pageY - this.offsetTop;
-
-        draw(lastMousePosition, currentMousePosition, color, true);
-
+    window.addEventListener('mousemove', function (e) {
+        if (!e.buttons) return;
+        lastMousePosition = currentMousePosition
+        currentMousePosition = pos(e)
+        lastMousePosition && currentMousePosition &&
+            draw(lastMousePosition, currentMousePosition, color, true);
     });
 }
 
-Object.defineProperties(Array.prototype, {
-    x: {get() { return this[0] }},
-    y: {get() { return this[1] }},
-})
+function pos(e) {
+    return [
+        e.pageX - canvas.offsetLeft,
+        e.pageY - canvas.offsetTop
+    ]
+}
 
 document.addEventListener('DOMContentLoaded', setup)
