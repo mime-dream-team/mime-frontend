@@ -20,8 +20,12 @@ canvas {
     box-sizing: border-box;
     border-radius: 20px;
     margin: 10px;
+    transition: box-shadow 113ms, transform 113ms;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+    transform: translate(-3px, -3px);
 }
 
 .marker.selected {
-    box-shadow: 2px 2px 2px black;
+    box-shadow: none;
+    transform: translate(0, 0);
 }
