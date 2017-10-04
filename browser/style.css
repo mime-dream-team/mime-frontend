@@ -25,6 +25,10 @@ canvas {
     transform: translate(-3px, -3px);
 }
 
+.marker:first-of-type {
+    margin-top: 0;
+}
+
 .marker.selected {
     box-shadow: none;
     transform: translate(0, 0);
