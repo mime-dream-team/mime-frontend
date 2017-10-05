@@ -9,7 +9,7 @@ import io from 'socket.io-client';
 whiteboard.on('draw', console.log)
 
 // Example: Draw a single stroke.
-draw([0, 0], [250, 250], 'red', true)
+// draw([0, 0], [250, 250], 'red', true)
 
 const socket = io(window.location.origin)
 

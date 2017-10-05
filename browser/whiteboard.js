@@ -31,7 +31,6 @@ export function draw(start, end, strokeColor='black', shouldBroadcast=true) {
     // that is colored with the given color.
     ctx.beginPath();
     ctx.strokeStyle = strokeColor;
-    console.log("DRAW START", start);
     ctx.moveTo(...start);
     ctx.lineTo(...end);
     ctx.closePath();
