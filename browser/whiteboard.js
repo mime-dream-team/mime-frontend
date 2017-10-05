@@ -10,7 +10,7 @@
 
 import {EventEmitter} from 'events'
 
-const events = new EventEmitter
+const events = new EventEmitter()
 
 export default events
 
