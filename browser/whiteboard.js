@@ -2,7 +2,7 @@
 
 /**
  * Creates a whiteboard on the page that the user can scribble on.
- * 
+ *
  * Exports:
  *   - default draw(from, to, color, shouldBroadcast)
  *   - events: an EventEmitter that emits `draw` events.
@@ -20,7 +20,7 @@ const ctx = canvas.getContext('2d')
 
 /**
  * Draw a line on the whiteboard.
- * 
+ *
  * @param {[Number, Number]} start start point
  * @param {[Number, Number]} end end point
  * @param {String} strokeColor color of the line
@@ -39,7 +39,7 @@ export function draw(start, end, strokeColor='black', shouldBroadcast=true) {
     // If shouldBroadcast is truthy, we will emit a draw event to listeners
     // with the start, end and color data.
     shouldBroadcast &&
-        events.emit('draw', {start, end, strokeColor});
+        events.emit('draw', start, end, strokeColor);
 };
 
 // State
@@ -68,8 +68,8 @@ const colors = [
 ]
 
 function setup() {
-    document.body.appendChild(canvas)    
-    
+    document.body.appendChild(canvas)
+
     setupColorPicker()
     setupCanvas()
 }
@@ -96,7 +96,7 @@ function setupColorPicker() {
     })
 
     document.body.appendChild(picker)
-    
+
     // Select the first color
     picker.firstChild.click()
 }
@@ -105,11 +105,11 @@ function setupColorPicker() {
 function resize() {
     // Unscale the canvas (if it was previously scaled)
     ctx.setTransform(1, 0, 0, 1, 0, 0);
-    
+
     // The device pixel ratio is the multiplier between CSS pixels
     // and device pixels
-    var pixelRatio = window.devicePixelRatio || 1;    
-    
+    var pixelRatio = window.devicePixelRatio || 1;
+
     // Allocate backing store large enough to give us a 1:1 device pixel
     // to canvas pixel ratio.
     var w = canvas.clientWidth * pixelRatio,
@@ -129,17 +129,17 @@ function resize() {
     // ratio to ensure that 1 canvas unit = 1 css pixel, even though our
     // backing store is larger.
     ctx.scale(pixelRatio, pixelRatio);
-    
+
     ctx.lineWidth = 5
     ctx.lineJoin = 'round';
-    ctx.lineCap = 'round';     
+    ctx.lineCap = 'round';
 }
 
 function setupCanvas() {
     // Set the size of the canvas and attach a listener
     // to handle resizing.
     resize()
-    window.addEventListener('resize', resize)     
+    window.addEventListener('resize', resize)
 
     window.addEventListener('mousedown', function (e) {
         currentMousePosition = pos(e)
