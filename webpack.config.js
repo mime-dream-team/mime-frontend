@@ -1,13 +1,13 @@
-/* 
-Note you need to make sure the build has completely finished 
-before reloading your web page
-to prevent a partial bundle from being served 
+/*
+  Note that you need to make sure the build has completely
+  finished before reloading your web page - otherwise,
+  only a partial bundle will be served
 */
 
 module.exports = {
   /* starting point for our frontend JavaScript (place to enter when bundling) */
   entry: './client/index.js',
-  /* where to output our newly bundled file */ 
+  /* where to output our newly bundled file */
   output: {
     path: __dirname + '/public', // the ABSOLUTE path for the directory
     filename: 'bundle.js' // the name of the file that will contain our output - we could name this whatever we want, but bundle.js is convention
