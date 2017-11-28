@@ -21,7 +21,7 @@ io.on('connection', socket => {
 
   socket.on('draw', function (start, end, color) {
     inMemoryDrawHistory.push({ start, end, color });
-    socket.broadcast.emit('draw', start, end, color);
+    socket.broadcast.emit('someOneDrew', start, end, color);
   });
 
   socket.on('disconnect', function () {

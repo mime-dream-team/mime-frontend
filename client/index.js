@@ -24,7 +24,7 @@ socket.on('load', function (strokes) {
 
 });
 
-socket.on('draw', function (start, end, color) {
+socket.on('someOneDrew', function (start, end, color) {
   draw(start, end, color, false);
 });
 

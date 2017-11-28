@@ -53,13 +53,13 @@ io.on('connection', (socket) => {
 	/* instantiate room if it doesn't exist */
 	rooms[roomName] = rooms[roomName] || [];
 	/* send to the client the entire roomState (an array of drawings) */
-	socket.emit('drawRoom', rooms[roomName])
+	socket.emit('load', rooms[roomName])
 
 	socket.on('disconnect', () => {
 		console.log('BYEEEEEE')
 	})
 
-	socket.on('sendDrawing', (...payload) => {// REST - you have many arguments comma separated, but now they are all 1 (ONE) and named payload --> payload === array of all arguments sent in
+	socket.on('drawing', (...payload) => {// REST - you have many arguments comma separated, but now they are all 1 (ONE) and named payload --> payload === array of all arguments sent in
 		
 		/* Playing with Rest and Spread
 			// const payload = Array.from(arguments)
@@ -84,7 +84,7 @@ io.on('connection', (socket) => {
 
 function getRoomName (socket) {
 	const urlArr = socket.request.headers.referer.split('/')
-	const roomName = urlArr[urlArr.length-1] // grabbing just the last bit of the url for the room name
+	const roomName = urlArr.pop() // grabbing just the last bit of the url for the room name
 	/* roomName will equal "" for main room */
 	return roomName
 }
