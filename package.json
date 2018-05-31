@@ -1,11 +1,18 @@
 {
-  "name": "boilerplate",
-  "version": "0.1.0",
-  "description": "boilerplate app with express, sequelize, react, redux, oath",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "lizz thabet",
-  "license": "ISC"
+	"name": "boilerplate",
+	"version": "0.1.0",
+	"description": "boilerplate app with express, sequelize, react, redux, oath",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "lizz thabet",
+	"license": "ISC",
+	"dependencies": {
+		"body-parser": "^1.18.3",
+		"express": "^4.16.3"
+	},
+	"devDependencies": {
+		"morgan": "^1.9.0"
+	}
 }
