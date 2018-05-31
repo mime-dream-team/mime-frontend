@@ -4,6 +4,8 @@
 	"description": "boilerplate app with express, sequelize, react, redux, oath",
 	"main": "index.js",
 	"scripts": {
+		"start": "node server/server.js",
+		"start:dev": "webpack -w & nodemon server/server.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "lizz thabet",
@@ -12,6 +14,7 @@
 		"body-parser": "^1.18.3",
 		"express": "^4.16.3",
 		"react": "^16.4.0",
+		"react-dom": "^16.4.0",
 		"react-router": "^4.2.0",
 		"react-router-dom": "^4.2.2"
 	},
@@ -21,7 +24,9 @@
 		"babel-preset-env": "^1.7.0",
 		"babel-preset-react": "^6.24.1",
 		"babel-preset-stage-2": "^6.24.1",
+		"chalk": "^2.4.1",
 		"morgan": "^1.9.0",
+		"nodemon": "^1.17.5",
 		"webpack": "^4.10.2",
 		"webpack-cli": "^2.1.4"
 	}
