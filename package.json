@@ -10,9 +10,19 @@
 	"license": "ISC",
 	"dependencies": {
 		"body-parser": "^1.18.3",
-		"express": "^4.16.3"
+		"express": "^4.16.3",
+		"react": "^16.4.0",
+		"react-router": "^4.2.0",
+		"react-router-dom": "^4.2.2"
 	},
 	"devDependencies": {
-		"morgan": "^1.9.0"
+		"babel-core": "^6.26.3",
+		"babel-loader": "^7.1.4",
+		"babel-preset-env": "^1.7.0",
+		"babel-preset-react": "^6.24.1",
+		"babel-preset-stage-2": "^6.24.1",
+		"morgan": "^1.9.0",
+		"webpack": "^4.10.2",
+		"webpack-cli": "^2.1.4"
 	}
 }
