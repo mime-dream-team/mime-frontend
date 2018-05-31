@@ -1,0 +1,11 @@
+{
+  "name": "boilerplate",
+  "version": "0.1.0",
+  "description": "boilerplate app with express, sequelize, react, redux, oath",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lizz thabet",
+  "license": "ISC"
+}
