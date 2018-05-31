@@ -7,7 +7,7 @@ const app = express()
 const port = process.env.PORT || 3000
 
 app.listen(port, () => {
-	console.log('server up and running')
+	console.log('server up and running on', port)
 })
 
 app.use(morgan('dev')) // logging middleware
