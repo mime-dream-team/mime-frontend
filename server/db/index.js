@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize')
 const db = require('./_db')
-const Model = require('../models/Model')
+const User = require('../models/User')
 
 // import all models here
 // define all relationships here
 
-module.exports = { db, Model }
+module.exports = { db, User }
