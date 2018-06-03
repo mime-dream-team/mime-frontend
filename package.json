@@ -16,6 +16,7 @@
 		"connect-session-sequelize": "^5.2.1",
 		"express": "^4.16.3",
 		"express-session": "^1.15.6",
+		"lodash": "^4.17.10",
 		"passport": "^0.4.0",
 		"pg": "^7.4.3",
 		"pg-hstore": "^2.3.2",
