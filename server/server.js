@@ -50,6 +50,7 @@ passport.deserializeUser((id, done) => {
 
 // routes
 app.use('/api', require('./api')) // api router
+app.use('/auth', require('./auth')) // auth router
 
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'))
