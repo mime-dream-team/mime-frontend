@@ -34,7 +34,6 @@ User.encryptPassword = (plainTxt, salt) => {
 }
 
 User.prototype.correctPassword = function(password){
-	console.log('****', this.Model, this.model)
 	return User.encryptPassword(password, this.salt) === this.password
 }
 
