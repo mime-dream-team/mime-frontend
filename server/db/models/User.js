@@ -33,8 +33,13 @@ User.encryptPassword = (plainTxt, salt) => {
 	return hash.digest('hex')
 }
 
-User.prototype.correctPassword = password => this.Model.encryptPassword(password, this.salt) === this.password
+User.prototype.correctPassword = function(password){
+	console.log('****', this.Model, this.model)
+	return User.encryptPassword(password, this.salt) === this.password
+}
 
-User.prototype.sanitize = () => _.omit(this.toJSON(), ['password', 'salt'])
+User.prototype.sanitize = function() {
+	return _.omit(this.toJSON(), ['password', 'salt'])
+}
 
 module.exports = User
