@@ -13,10 +13,7 @@ module.exports = {
 			{
 				test: /\.jsx?$/,
 				exclude: /node_modules/,
-				loader: 'babel-loader',
-				options: {
-					presets: ['react', 'env', 'stage-2']
-				}
+				loader: 'babel-loader'
 			},
 			{
 				test: /\.css$/,
