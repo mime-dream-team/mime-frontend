@@ -4,8 +4,8 @@
 	"description": "boilerplate app with express, sequelize, react, redux, oath",
 	"main": "index.js",
 	"scripts": {
-		"start": "node server/server.js",
-		"start:dev": "webpack -w & nodemon server/server.js",
+		"start": "node server/start.js",
+		"start:dev": "webpack -w & nodemon server/start.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "lizz thabet",
@@ -14,6 +14,8 @@
 		"axios": "^0.18.0",
 		"body-parser": "^1.18.3",
 		"express": "^4.16.3",
+		"pg": "^7.4.3",
+		"pg-hstore": "^2.3.2",
 		"react": "^16.4.0",
 		"react-dom": "^16.4.0",
 		"react-redux": "^5.0.7",
@@ -22,7 +24,8 @@
 		"redux": "^4.0.0",
 		"redux-devtools-extension": "^2.13.2",
 		"redux-logger": "^3.0.6",
-		"redux-thunk": "^2.3.0"
+		"redux-thunk": "^2.3.0",
+		"sequelize": "^4.37.10"
 	},
 	"devDependencies": {
 		"babel-core": "^6.26.3",
