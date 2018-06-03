@@ -31,8 +31,10 @@
 		"babel-preset-react": "^6.24.1",
 		"babel-preset-stage-2": "^6.24.1",
 		"chalk": "^2.4.1",
+		"css-loader": "^0.28.11",
 		"morgan": "^1.9.0",
 		"nodemon": "^1.17.5",
+		"style-loader": "^0.21.0",
 		"webpack": "^4.10.2",
 		"webpack-cli": "^2.1.4"
 	}

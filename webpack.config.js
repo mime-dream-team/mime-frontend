@@ -9,13 +9,19 @@ module.exports = {
 	},
 	devtool: 'source-maps',
 	module: {
-		rules: [{
-			test: /\.js$/,
-			exclude: /node_modules/,
-			loader: 'babel-loader',
-			options: {
-				presets: ['react', 'env', 'stage-2']
+		rules: [
+			{
+				test: /\.jsx?$/,
+				exclude: /node_modules/,
+				loader: 'babel-loader',
+				options: {
+					presets: ['react', 'env', 'stage-2']
+				}
+			},
+			{
+				test: /\.css$/,
+				use: ['style-loader', 'css-loader']
 			}
-		}]
+		]
 	}
 }
