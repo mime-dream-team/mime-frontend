@@ -37,6 +37,7 @@ yarn-error.log*
 
 # Dependency directories
 node_modules/
+local.js
 
 # Typescript v1 declaration files
 typings/

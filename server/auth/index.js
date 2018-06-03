@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const { User } = require('../db')
 
+router.use('/google', require('./google'))
+
 router.get('/me', (req, res, next) => {
 	res.json(req.user.sanitize())
 })
