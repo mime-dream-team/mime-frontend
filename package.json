@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "node server/start.js",
 		"start:dev": "webpack -w & nodemon server/start.js",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "mocha ./tests/*.test.js --compilers js:babel-register --watch"
 	},
 	"author": "lizz thabet",
 	"license": "ISC",
@@ -38,6 +38,7 @@
 		"babel-preset-env": "^1.7.0",
 		"babel-preset-react": "^6.24.1",
 		"babel-preset-stage-2": "^6.24.1",
+		"babel-register": "^6.26.0",
 		"chai": "^4.1.2",
 		"chalk": "^2.4.1",
 		"css-loader": "^0.28.11",
