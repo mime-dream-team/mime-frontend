@@ -1,4 +1,4 @@
-require('../local')
+// require('../local')
 
 const db = require('./db/_db')
 const app = require('./server')

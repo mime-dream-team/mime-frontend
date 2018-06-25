@@ -1,14 +1,31 @@
 const express = require('express')
+const http = require('http')
 const morgan = require('morgan')
 const path = require('path')
 const bodyParser = require('body-parser')
 const session = require('express-session')
+const socketio = require('socket.io')
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
 const passport = require('passport')
 const { db, User } = require('./db')
 
 const app = express()
 const dbStore = new SequelizeStore({ db }) // store sessions in db
+const server = http.createServer(app)
+
+const io = socketio(server) // set up socket.io to communicate between frontend & server
+const inMemoryDrawHistory = []
+
+io.on('connection', socket => {
+	console.log('A new client has connected!', socket.id)
+
+	if (inMemoryDrawHistory.length) socket.emit('load', inMemoryDrawHistory)
+
+	socket.on('draw', (start, end, color) => {
+		inMemoryDrawHistory.push({ start, end, color})
+		socket.broadcast.emit('someoneDrew', start, end, color)
+	})
+})
 
 dbStore.sync() // sync so that session table gets created
 
