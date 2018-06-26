@@ -1,1 +1,35 @@
+canvas {
+	position: absolute;
+	top: 0; left: 0;
+	width: 100%; height: 100%;
+}
 
+.color-selector {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	background: none;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+}
+
+.marker {
+	width: 40px;
+	height: 40px;
+	box-sizing: border-box;
+	border-radius: 20px;
+	margin-top: 10px; margin-bottom: 10px;
+	transition: box-shadow 113ms, transform 113ms;
+	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+	transform: translate(-3px, -3px);
+}
+
+.marker:first-of-type {
+	margin-top: 0;
+}
+
+.marker.selected {
+	box-shadow: none;
+	transform: translate(0, 0);
+}
