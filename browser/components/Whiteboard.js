@@ -2,9 +2,13 @@ import React, { Component } from 'react'
 import { Stage, Layer, Image } from 'react-konva'
 
 export default class Whiteboard extends Component {
-	state = {
-		isDrawing: false,
-		strokePool: []
+	constructor(props){
+		super(props)
+		this.state = {
+			isDrawing: false,
+			strokePool: []
+		}
+		this.image = React.createRef()
 	}
 
 	componentDidMount() {
@@ -18,7 +22,7 @@ export default class Whiteboard extends Component {
 	handleMouseDown = () => {
 		console.log('mousedown')
 		this.setState({ isDrawing: true })
-		const stage = this.image.parent.parent
+		const stage = this.image.current.parent.parent
 		this.lastPointerPosition = stage.getPointerPosition()
 	}
 
@@ -39,16 +43,16 @@ export default class Whiteboard extends Component {
 			context.beginPath()
 			let sample = []
 			let localPos = {
-				x: this.lastPointerPosition.x - this.image.x(),
-				y: this.lastPointerPosition.y - this.image.y()
+				x: this.lastPointerPosition.x - this.image.current.x(),
+				y: this.lastPointerPosition.y - this.image.current.y()
 			}
 			sample.push([ localPos.x, localPos.y ])
 			context.moveTo(localPos.x, localPos.y)
-			const stage = this.image.parent.parent
+			const stage = this.image.current.parent.parent
 			let pos = stage.getPointerPosition()
 			localPos = {
-				x: pos.x - this.image.x(),
-				y: pos.y - this.image.y()
+				x: pos.x - this.image.current.x(),
+				y: pos.y - this.image.current.y()
 			}
 			context.lineTo(localPos.x, localPos.y)
 			sample.push([ localPos.x, localPos.y ])
@@ -56,7 +60,7 @@ export default class Whiteboard extends Component {
 			context.closePath()
 			context.stroke()
 			this.lastPointerPosition = pos
-			this.image.getLayer().draw()
+			this.image.current.getLayer().draw()
 		}
 	}
 
@@ -68,7 +72,7 @@ export default class Whiteboard extends Component {
 				<Layer>
 					<Image
 						image={canvas}
-						ref={node => (this.image = node)}
+						ref={this.image}
 						width={500}
 						height={500}
 						stroke='black'
