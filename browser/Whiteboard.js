@@ -1,89 +1,100 @@
 import React, { Component } from 'react'
-import { EventEmitter } from 'events'
-import io from 'socket.io-client'
+import { render } from 'react-dom'
+import { Stage, Layer, Image } from 'react-konva'
 
-// export const socket = io(window.location.origin)
-// export const events = new EventEmitter()
+export default class Whiteboard extends Component {
+	state = {
+		isDrawing: false,
+		mode: 'brush',
+		strokePool: []
+	}
 
-// socket.on('connect', () => console.log('I have made a persistent two-way connection to the server!'))
+	componentDidMount() {
+		const canvas = document.createElement('canvas')
+		canvas.width = 500
+		canvas.height = 500
+		const context = canvas.getContext('2d')
+		this.setState({ canvas, context })
+	}
 
-// socket.on('load', strokes => {
-//   strokes.forEach(stroke => {
-//     const { start, end, color } = stroke
-//     // draw(start, end, color, false)
-//   })
-// })
+	handleMouseDown = () => {
+		console.log('mousedown')
+		this.setState({ isDrawing: true })
+		const stage = this.image.parent.parent
+		this.lastPointerPosition = stage.getPointerPosition()
+	}
 
-// socket.on('draw', function (start, end, color) {
-//   draw(start, end, color, false)
-// })
+	handleMouseUp = () => {
+		// console.log(this.state.strokePool)
+		console.log('mouseup')
+		this.setState({ isDrawing: false, strokePool: [] })
+	}
 
-// whiteboard.on('draw', function (start, end, color) {
-//   socket.emit('draw', start, end, color)
-// })
+	handleMouseMove = () => {
+		console.log(this.state.strokePool)
+		const { context, isDrawing, mode } = this.state
 
-class Whiteboard extends Component {
-	constructor(props){
-		super(props)
-		this.state = {
-			color: '',
-			colors: [ 'black', 'purple', 'red', 'green', 'orange', 'yellow', 'brown'],
-			currentMousePosition: { x: 0, y: 0 },
-			lastMousePosition: { x: 0, y: 0 }
+		if (isDrawing) {
+			console.log('drawing')
+
+			// TODO: Don't always get a new context
+			context.strokeStyle = '#000000'
+			context.lineJoin = 'round'
+			context.lineWidth = 5
+
+			if (mode === 'brush') {
+				context.globalCompositeOperation = 'source-over'
+			} else if (mode === 'eraser') {
+				context.globalCompositeOperation = 'destination-out'
+			}
+			context.beginPath()
+			let sample = []
+
+			var localPos = {
+				x: this.lastPointerPosition.x - this.image.x(),
+				y: this.lastPointerPosition.y - this.image.y()
+			}
+			sample.push([ localPos.x, localPos.y ])
+			console.log('moveTo', localPos)
+			context.moveTo(localPos.x, localPos.y)
+
+			// TODO: improve
+			const stage = this.image.parent.parent
+
+			var pos = stage.getPointerPosition()
+			localPos = {
+				x: pos.x - this.image.x(),
+				y: pos.y - this.image.y()
+			}
+			sample.push([ localPos.x, localPos.y ])
+			this.setState({ strokePool: [ ...this.state.strokePool, ...sample ] })
+			console.log('lineTo', localPos)
+			context.lineTo(localPos.x, localPos.y)
+			context.closePath()
+			context.stroke()
+			this.lastPointerPosition = pos
+			this.image.getLayer().draw()
 		}
-		this.canvas = React.createRef()
-		this.events = events
-		this.draw = this.draw.bind(this)
 	}
-	componentDidMount(){
-		console.log(this.events)
-		this.ctx = this.canvas.current.getContext('2d')
-		this.events.on('draw', console.log)
-		this.events.on('draw', (start, end, color) => {
-			// socket.emit('draw', start, end, color)
-		})
-		// setupColorPicker
-		// setupCanvas
-	}
-	draw(start, end, strokeColor = 'black', shouldBroadcast = true) {
-		// Draw the line between the start and end positions
-		// that is colored with the given color.
-		this.ctx.beginPath()
-		this.ctx.strokeStyle = strokeColor
-		this.ctx.moveTo(...start)
-		this.ctx.lineTo(...end)
-		this.ctx.closePath()
-		this.ctx.stroke()
 
-		// If shouldBroadcast is truthy, we will emit a draw event to listeners
-		// with the start, end and color data.
-		if (shouldBroadcast) this.events.emit('draw', start, end, strokeColor)
-	}
-	handleMouseMove(event){
-		if (event.buttons){
-			this.setState(previousState => { 
-				return {
-					lastMousePosition: previousState.currentMousePosition,
-					currentMousePosition: this.position(event)
-				}
-			})
-			this.draw(this.lastMousePosition, this.currentMousePosition, this.color, true)
-		}
-	}
-	handleMouseDown(event){
-		this.setState({ currentMousePosition: this.position(event) })
-	}
-	position(event) {
-		return [
-				event.pageX - this.canvas.offsetLeft,
-				event.pageY - this.canvas.offsetTop
-		]
-	}
-	render(){
+	render() {
+		const { canvas } = this.state
+
 		return (
-		<canvas ref={ this.canvas } onMouseDown={ this.handleMouseDown }></canvas>
+			<Stage width={700} height={700}>
+				<Layer>
+					<Image
+						image={canvas}
+						ref={node => (this.image = node)}
+						width={500}
+						height={500}
+						stroke='black'
+						onMouseDown={this.handleMouseDown}
+						onMouseUp={this.handleMouseUp}
+						onMouseMove={this.handleMouseMove}
+					/>
+				</Layer>
+			</Stage>
 		)
 	}
 }
-
-export default Whiteboard
