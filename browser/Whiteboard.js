@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import { render } from 'react-dom'
 import { Stage, Layer, Image } from 'react-konva'
 
 export default class Whiteboard extends Component {
 	state = {
 		isDrawing: false,
-		mode: 'brush',
 		strokePool: []
 	}
 
@@ -25,51 +23,36 @@ export default class Whiteboard extends Component {
 	}
 
 	handleMouseUp = () => {
-		// console.log(this.state.strokePool)
 		console.log('mouseup')
 		this.setState({ isDrawing: false, strokePool: [] })
 	}
 
 	handleMouseMove = () => {
 		console.log(this.state.strokePool)
-		const { context, isDrawing, mode } = this.state
+		const { context, isDrawing } = this.state
 
 		if (isDrawing) {
-			console.log('drawing')
-
-			// TODO: Don't always get a new context
 			context.strokeStyle = '#000000'
 			context.lineJoin = 'round'
 			context.lineWidth = 5
-
-			if (mode === 'brush') {
-				context.globalCompositeOperation = 'source-over'
-			} else if (mode === 'eraser') {
-				context.globalCompositeOperation = 'destination-out'
-			}
+			context.globalCompositeOperation = 'source-over'
 			context.beginPath()
 			let sample = []
-
-			var localPos = {
+			let localPos = {
 				x: this.lastPointerPosition.x - this.image.x(),
 				y: this.lastPointerPosition.y - this.image.y()
 			}
 			sample.push([ localPos.x, localPos.y ])
-			console.log('moveTo', localPos)
 			context.moveTo(localPos.x, localPos.y)
-
-			// TODO: improve
 			const stage = this.image.parent.parent
-
-			var pos = stage.getPointerPosition()
+			let pos = stage.getPointerPosition()
 			localPos = {
 				x: pos.x - this.image.x(),
 				y: pos.y - this.image.y()
 			}
+			context.lineTo(localPos.x, localPos.y)
 			sample.push([ localPos.x, localPos.y ])
 			this.setState({ strokePool: [ ...this.state.strokePool, ...sample ] })
-			console.log('lineTo', localPos)
-			context.lineTo(localPos.x, localPos.y)
 			context.closePath()
 			context.stroke()
 			this.lastPointerPosition = pos
