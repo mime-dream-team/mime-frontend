@@ -2,17 +2,17 @@ import React, { Component } from 'react'
 import { EventEmitter } from 'events'
 import io from 'socket.io-client'
 
-export const socket = io(window.location.origin)
-export const events = new EventEmitter()
+// export const socket = io(window.location.origin)
+// export const events = new EventEmitter()
 
-socket.on('connect', () => console.log('I have made a persistent two-way connection to the server!'))
+// socket.on('connect', () => console.log('I have made a persistent two-way connection to the server!'))
 
-socket.on('load', strokes => {
-  strokes.forEach(stroke => {
-    const { start, end, color } = stroke
-    // draw(start, end, color, false)
-  })
-})
+// socket.on('load', strokes => {
+//   strokes.forEach(stroke => {
+//     const { start, end, color } = stroke
+//     // draw(start, end, color, false)
+//   })
+// })
 
 // socket.on('draw', function (start, end, color) {
 //   draw(start, end, color, false)
@@ -40,7 +40,7 @@ class Whiteboard extends Component {
 		this.ctx = this.canvas.current.getContext('2d')
 		this.events.on('draw', console.log)
 		this.events.on('draw', (start, end, color) => {
-			socket.emit('draw', start, end, color)
+			// socket.emit('draw', start, end, color)
 		})
 		// setupColorPicker
 		// setupCanvas

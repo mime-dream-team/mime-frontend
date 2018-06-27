@@ -40,7 +40,7 @@ export function draw(start, end, strokeColor='black', shouldBroadcast=true) {
     // with the start, end and color data.
     shouldBroadcast &&
         events.emit('draw', start, end, strokeColor);
-};
+}
 
 // State
 //// Stroke color

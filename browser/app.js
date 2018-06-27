@@ -12,7 +12,7 @@ import './styles/main.css'
 
 ReactDOM.render(
 	<Provider store = { store }>
-		<Whiteboard />
+		<h1>Hi!</h1>
 	</Provider>,
 	document.getElementById('app')
 )
