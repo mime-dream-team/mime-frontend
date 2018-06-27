@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Stage, Layer, Image } from 'react-konva'
+import { Stage, Layer, Image, Circle } from 'react-konva'
 
 export default class Whiteboard extends Component {
 	state = {
@@ -64,7 +64,7 @@ export default class Whiteboard extends Component {
 		const { canvas } = this.state
 
 		return (
-			<Stage width={700} height={700}>
+			<Stage width={500} height={500}>
 				<Layer>
 					<Image
 						image={canvas}
@@ -75,6 +75,20 @@ export default class Whiteboard extends Component {
 						onMouseDown={this.handleMouseDown}
 						onMouseUp={this.handleMouseUp}
 						onMouseMove={this.handleMouseMove}
+					/>
+					<Circle
+						x={300}
+						y={300}
+						numPoints={5}
+						radius={40}
+						fill='#89b717'
+						opacity={0.8}
+						draggable
+						shadowColor='black'
+						shadowBlur={10}
+						shadowOpacity={0.6}
+						onDragStart={this.handleDragStart}
+						onDragEnd={this.handleDragEnd}
 					/>
 				</Layer>
 			</Stage>
