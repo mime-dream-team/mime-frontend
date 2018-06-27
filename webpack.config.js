@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 
 module.exports = {
-	entry: './browser/app.js',
+	entry: './browser/index.js',
 	mode: 'development',
 	output: {
 		path: `${__dirname}/public`,
