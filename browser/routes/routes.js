@@ -7,7 +7,9 @@ import Whiteboard from '../components/Whiteboard'
 const Routes = () => {
 	return (
 		<Switch>
-			<Route exact path='/mime' component={ Whiteboard } />
+			<Route exact path='/' render={() => <h1>Hey</h1>} />
+			<Route exact path='/mime' component={Whiteboard} />
+			<Route path='/mime/:roomName' component={Whiteboard} />
 		</Switch>
 	)
 }

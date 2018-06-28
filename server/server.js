@@ -17,8 +17,7 @@ app.use(morgan('dev')) // logging middleware
 app.use(bodyParser.json()) // json parsing middleware
 app.use(bodyParser.urlencoded({ extended: true })) // urlencoded parsing middleware
 
-app.use(express.static(path.join(__dirname, '../public'))) // serve public files
-
+app.use(express.static(path.join(__dirname, '..', 'public'))) // serve public files
 // session settings
 app.use(
 	session({
@@ -55,7 +54,7 @@ app.use('/api', require('./api')) // api router
 app.use('/auth', require('./auth')) // auth router
 
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, '../public/index.html'))
+	res.sendFile(path.join(__dirname, '..', 'public/index.html'))
 })
 
 app.use((error, req, res, next) => {

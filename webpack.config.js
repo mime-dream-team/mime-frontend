@@ -1,10 +1,11 @@
 const webpack = require('webpack')
+const path = require('path')
 
 module.exports = {
 	entry: './browser/index.js',
 	mode: 'development',
 	output: {
-		path: `${__dirname}/public`,
+		path: path.join(__dirname, 'public'),
 		filename: 'bundle.js'
 	},
 	devtool: 'source-maps',
@@ -17,7 +18,7 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-				use: ['style-loader', 'css-loader']
+				use: [ 'style-loader', 'css-loader' ]
 			}
 		]
 	}

@@ -4,7 +4,8 @@ import store from './store/store'
 const socket = io(window.location.origin)
 
 socket.on('connect', () => {
-	console.log('I am now connected to the server!')
+	console.log('I am now connected to the server from the front!')
+	socket.emit('iJoined', { loc: window.location.hash })
 })
 
 export default socket
