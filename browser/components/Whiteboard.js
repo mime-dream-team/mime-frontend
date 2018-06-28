@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Stage, Layer, Image } from 'react-konva'
+import { Stage, Layer, Image, Circle } from 'react-konva'
 
 // These dimensions control the size of the canvas and Image component that forms the drawing surface
 const drawingHeight = window.innerHeight - 25
