@@ -1,32 +1,33 @@
 //Top Left
 const topLeftPoint = (stroke) => {
 	let lowestXValue = stroke[0][0]
-	let highestYValue = stroke[0][1]
+	let lowestYValue = stroke[0][1]
 
 	for (let i = 0; i < stroke.length; i++){
 		let x = stroke[i][0]
 		let y = stroke[i][1]
 		if(x < lowestXValue) lowestXValue = x
-		if(y > highestYValue) highestYValue = y
+		if(y < lowestYValue) lowestYValue = y
 	}
 
-	return [lowestXValue, highestYValue]
+	return [lowestXValue, lowestYValue]
 }
 
 //Center
 const centerPoint = (stroke) => {
-	const xValues = stroke.map(point => point[0])
-	const yValues = stroke.map(point => point[1])
-	
-	const xAverage = xValues.reduce((sum, value) => {
-		return sum + value
-	}, 0) / xValues.length
+	const xValues = stroke.map(point => point[0]).sort()
+	const yValues = stroke.map(point => point[1]).sort()
 
-	const yAverage = yValues.reduce((sum, value) => {
-		return sum + value
-	}, 0) / yValues.length
+	const smallestX = xValues[0]
+	const greatestX = xValues[xValues.length - 1]
 
-	return [xAverage,yAverage]
+	const smallestY = yValues[0]
+	const greatestY = yValues[yValues.length - 1]
+
+	const centerX = (smallestX + greatestX)/2
+	const centerY = (smallestY + greatestY)/2;
+
+	return [centerX,centerY]
 }
 
 //Width/Height
@@ -47,8 +48,8 @@ const widthAndHeight = (stroke) => {
 }
 
 
-module.exports = (
+module.exports = {
 	topLeftPoint,
 	centerPoint,
 	widthAndHeight
-)
+}
