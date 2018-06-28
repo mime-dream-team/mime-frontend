@@ -1,23 +1,24 @@
 module.exports = io => {
 	io.on('connection', socket => {
+		console.log(socket.id, ' has made a persistent connection to the server!')
+		let currentRoom
 		const rooms = {
 			main: []
 		}
-		console.log(socket.id, ' has made a persistent connection to the server!')
-		const roomName = getRoomName(socket)
+		socket.on('iJoined', payload => {
+			let urlArr = payload.loc.split('/')
+			currentRoom = urlArr.pop()
+			console.log('HELLO FROM', payload.loc, currentRoom)
+		})
+		// const roomName = getRoomName(socket)
 		/* subscribe a socket to a channel so we can emit to that channel and they will hear it */
-		socket.join(roomName)
+		socket.join(currentRoom)
 		/* instantiate room if it doesn't exist */
-		rooms[roomName] = rooms[roomName] || []
-		/* send to the client the entire roomState (an array of drawings) */
-		socket.emit('load', rooms[roomName])
-
+		rooms[currentRoom] = rooms[currentRoom] || []
+		/* send to the client the entire roomState (in this case, an array of drawings) */
+		socket.emit('load', rooms[currentRoom])
 		socket.on('disconnect', () => {
 			console.log('BYEEEEEE')
-		})
-
-		socket.on('iJoined', payload => {
-			console.log('HELLO FROM', payload.loc)
 		})
 
 		// socket.on('drawing', (...payload) => {
@@ -26,12 +27,12 @@ module.exports = io => {
 		// 	socket.to(roomName).emit('someOneDrew', payload)
 		// })
 	})
-	function getRoomName(socket) {
-		console.log(socket.request.headers)
-		const urlArr = socket.request.headers.referer.split('/')
-		const roomName = urlArr.pop() // grabbing just the last bit of the url for the room name
-		/* roomName will equal "" for main room */
-		console.log('we are in room', roomName)
-		return roomName
-	}
+	// function getRoomName(socket) {
+	// 	// console.log(socket)
+	// 	const urlArr = socket.request.headers.referer.split('/')
+	// 	const roomName = urlArr.pop() // grabbing just the last bit of the url for the room name
+	// 	/* roomName will equal "" for main room */
+	// 	// console.log('we are in room', roomName)
+	// 	return roomName
+	// }
 }
