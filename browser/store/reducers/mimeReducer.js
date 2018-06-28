@@ -1,10 +1,8 @@
-import axios from 'axios'
-
 // Action types
 const ADD_NEW_SHAPE = 'ADD_NEW_SHAPE'
 
 // Action creators
-const addNewShape = interpretedShape => {
+export const addNewShape = interpretedShape => {
 	return { type: ADD_NEW_SHAPE, interpretedShape }
 }
 
