@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Stage, Layer, Image, Circle } from 'react-konva'
+import socket from '../socket'
 
 // These dimensions control the size of the canvas and Image component that forms the drawing surface
 const drawingHeight = window.innerHeight - 25
 const drawingWidth = window.innerWidth - 25
 
 export default class Whiteboard extends Component {
-	constructor(props){
+	constructor(props) {
 		super(props)
 		this.state = {
 			isDrawing: false,
@@ -79,7 +80,11 @@ export default class Whiteboard extends Component {
 		const { canvas } = this.state
 		return (
 			<section>
-				<Stage width={window.innerWidth} height={window.innerHeight} ref={this.stage}>
+				<Stage
+					width={window.innerWidth}
+					height={window.innerHeight}
+					ref={this.stage}
+				>
 					<Layer>
 						<Image
 							image={canvas}
