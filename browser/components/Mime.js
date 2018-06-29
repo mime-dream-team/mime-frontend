@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { Stage, Layer, Circle, Line, Rect, RegularPolygon } from 'react-konva'
 import socket from '../socket'
 import { connect } from 'react-redux'
-import Whiteboard from './Whiteboard';
-import { updateShapePosition } from '../store/reducers/mimeReducer';
+import Whiteboard from './Whiteboard'
+import { updateShapePosition } from '../store/reducers/mimeReducer'
 
 // These dimensions control the size of the canvas and Image component that forms the drawing surface
-const drawingHeight = window.innerHeight - 25
-const drawingWidth = window.innerWidth - 25
+const drawingHeight = window.innerHeight
+const drawingWidth = window.innerWidth
 
 class Mime extends Component {
 	constructor(props) {
@@ -27,6 +27,7 @@ class Mime extends Component {
 		}
 	}
 
+	// Note to fix: not adding the dispatch method to component properly
 	handleDragEnd(shape){
 		return (event) => {
 			shape.x = event.target.x()
@@ -62,10 +63,6 @@ class Mime extends Component {
 const mapStateToProps = state => {
 	const { mimeObjects } = state
 	return { mimeObjects }
-}
-
-const mapDispatchToProps = {
-	updateShapePosition
 }
 
 export default connect(mapStateToProps)(Mime)
