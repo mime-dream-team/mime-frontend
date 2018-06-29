@@ -19,8 +19,18 @@ class Mime extends Component {
 
 	renderShapes(){
 		if (this.props.mimeObjects.length) {
-			return this.props.mimeObjects.map(shape => {
-				return (<Circle key={shape.key} x={shape.x} y={shape.y} radius={shape.radius} stroke='black' strokeWidth='4' draggable='true' onDragEnd={this.handleDragEnd(shape)} />)
+			return this.props.mimeObjects.map((shape, index) => {
+				switch (shape.type){
+					case 'circle': {
+						return <Circle key={index = 'c'} x={shape.x} y={shape.y} radius={shape.radius} stroke='blue' strokeWidth='4' draggable='true' onDragEnd={this.handleDragEnd(shape)}/>
+					}
+					case 'square': {
+						return <Rect key={index = 's'} x={shape.x} y={shape.y} width={shape.width} height={shape.height} stroke='red' strokeWidth='4' draggable='true' onDragEnd={this.handleDragEnd(shape)}/>
+					}
+					default: {
+						return <Circle key={shape.key} x={shape.x} y={shape.y} radius={shape.radius} stroke='black' strokeWidth='4' draggable='true' onDragEnd={this.handleDragEnd(shape)} />
+					}
+				}
 			})
 		} else {
 			return null
@@ -35,7 +45,7 @@ class Mime extends Component {
 			updatedShape.y = event.target.y()
 			this.props.updateShapePosition(updatedShape)
 		}
-	}
+	} //0 mean unit variance
 
 	render() {
 		return (

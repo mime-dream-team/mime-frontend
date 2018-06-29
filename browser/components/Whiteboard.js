@@ -44,7 +44,6 @@ class Whiteboard extends Component {
 	handleMouseMove = () => {
 		const { isDrawing, context } = this.state
 		if (isDrawing) {
-			console.log(this.state.strokePool)
 			context.strokeStyle = '#000000'
 			context.lineJoin = 'round'
 			context.lineWidth = 5
