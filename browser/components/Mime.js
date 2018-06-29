@@ -5,9 +5,10 @@ import { connect } from 'react-redux'
 import Whiteboard from './Whiteboard'
 import { updateShapePosition } from '../store/reducers/mimeReducer'
 
+// To do: The mime canvas will be a fixed pixel size, which will be received on props
 // These dimensions control the size of the canvas and Image component that forms the drawing surface
-const drawingHeight = window.innerHeight
-const drawingWidth = window.innerWidth
+const drawingHeight = 786
+const drawingWidth = 1024
 
 class Mime extends Component {
 	constructor(props) {
@@ -41,12 +42,14 @@ class Mime extends Component {
 		return (
 			<section>
 				<Stage
-					width={window.innerWidth}
-					height={window.innerHeight}
+					className='mime'
+					width={drawingWidth}
+					height={drawingHeight}
 					ref={this.stage}
 				>
 					<Layer>
 						<Whiteboard
+							className='mime__whiteboard'
 							width={drawingWidth}
 							height={drawingHeight}
 						/>

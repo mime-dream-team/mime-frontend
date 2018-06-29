@@ -81,7 +81,6 @@ class Whiteboard extends Component {
 				ref={this.image}
 				width={this.props.width}
 				height={this.props.height}
-				stroke='black'
 				onMouseDown={this.handleMouseDown}
 				onMouseUp={this.handleMouseUp}
 				onMouseMove={this.handleMouseMove}
