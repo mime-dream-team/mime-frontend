@@ -2,11 +2,7 @@ import React, { Component } from 'react'
 import { Stage, Layer, Image, Circle } from 'react-konva'
 import socket from '../socket'
 
-// These dimensions control the size of the canvas and Image component that forms the drawing surface
-const drawingHeight = window.innerHeight - 25
-const drawingWidth = window.innerWidth - 25
-
-export default class Whiteboard extends Component {
+class Whiteboard extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -15,7 +11,6 @@ export default class Whiteboard extends Component {
 			canvas: '',
 			context: ''
 		}
-		this.stage = React.createRef()
 		this.image = React.createRef()
 	}
 
@@ -26,8 +21,8 @@ export default class Whiteboard extends Component {
 	// Note: the canvas needs to be the same size as the Image component
 	createCanvas = () => {
 		const canvas = document.createElement('canvas')
-		canvas.width = drawingWidth
-		canvas.height = drawingHeight
+		canvas.width = this.props.width
+		canvas.height = this.props.height
 		const context = canvas.getContext('2d')
 		this.setState({ canvas, context })
 	}
@@ -41,6 +36,8 @@ export default class Whiteboard extends Component {
 
 	handleMouseUp = () => {
 		console.log('mouseup')
+		// If there's stroke data after mouse release, emit a draw event to the server
+		if (this.state.strokePool.length) socket.emit('draw', this.state.strokePool)
 		this.setState({ isDrawing: false, strokePool: [] })
 	}
 
@@ -79,27 +76,18 @@ export default class Whiteboard extends Component {
 	render() {
 		const { canvas } = this.state
 		return (
-			<section>
-				<Stage
-					width={window.innerWidth}
-					height={window.innerHeight}
-					ref={this.stage}
-				>
-					<Layer>
-						<Image
-							image={canvas}
-							ref={this.image}
-							width={drawingWidth}
-							height={drawingHeight}
-							stroke='black'
-							onMouseDown={this.handleMouseDown}
-							onMouseUp={this.handleMouseUp}
-							onMouseMove={this.handleMouseMove}
-						/>
-					</Layer>
-					{/* All wireframe shapes will be in a new layer */}
-				</Stage>
-			</section>
+			<Image
+				image={canvas}
+				ref={this.image}
+				width={this.props.width}
+				height={this.props.height}
+				stroke='black'
+				onMouseDown={this.handleMouseDown}
+				onMouseUp={this.handleMouseUp}
+				onMouseMove={this.handleMouseMove}
+			/>
 		)
 	}
 }
+
+export default Whiteboard
