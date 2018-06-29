@@ -1,34 +1,25 @@
-import axios from 'axios'
-
-// action types
+// Action types
 const ADD_NEW_SHAPE = 'ADD_NEW_SHAPE'
+const UPDATE_SHAPE_POSITION = 'UPDATE_SHAPE_POSITION'
 
-// action creators
-const addNewShape = interpretedShape => {
+// Action creators
+export const addNewShape = interpretedShape => {
 	return { type: ADD_NEW_SHAPE, interpretedShape }
 }
 
-// thunks
-// wrap async code
-const actionCreatorThunk = data => dispatch => {
-	axios
-		.get('/api/user/:data')
-		.then(newData => dispatch(actionCreator(newData.data)))
-		.catch(console.error)
+export const updateShapePosition = updatedShape => {
+	return { type: UPDATE_SHAPE_POSITION, updatedShape }
 }
 
-// initial state
-// each piece of state should be typed
-const initialState = {
-	mimeObjects: []
-}
-
-// reducer
-// must return a new state and not mutate previous state
-const reducer = (state = initialState, action) => {
+// Reducer
+// Mime state will be an array of objects, where objects contain shape data
+const reducer = (state = [], action) => {
 	switch (action.type) {
-	case ACTION_TYPE:
-		return { data: action.data }
+	case ADD_NEW_SHAPE:
+		return [ ...state, action.interpretedShape ]
+	case UPDATE_SHAPE_POSITION:
+		let shapesNotUpdating = state.filter(shape => shape.key !== action.updatedShape.key)
+		return [ ...shapesNotUpdating, action.updatedShape ]
 	default:
 		return state
 	}

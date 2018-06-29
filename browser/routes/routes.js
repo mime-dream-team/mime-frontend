@@ -1,6 +1,6 @@
 import React from 'react'
 import { withRouter, Route, Switch } from 'react-router-dom'
-import Whiteboard from '../components/Whiteboard'
+import Mime from '../components/Mime'
 // Import components here
 // Import anything from the store here
 
@@ -8,8 +8,8 @@ const Routes = () => {
 	return (
 		<Switch>
 			<Route exact path='/' render={() => <h1>Hey</h1>} />
-			<Route exact path='/mime' component={Whiteboard} />
-			<Route path='/mime/:roomName' component={Whiteboard} />
+			<Route exact path='/mime' component={Mime} />
+			<Route path='/mime/:roomName' component={Mime} />
 		</Switch>
 	)
 }

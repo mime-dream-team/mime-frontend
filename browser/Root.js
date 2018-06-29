@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Routes from './routes/Routes'
-import Whiteboard from './components/Whiteboard'
+import Mime from './components/Mime'
 
 const Root = () => {
 	return (
