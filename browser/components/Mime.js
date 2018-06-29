@@ -16,6 +16,16 @@ class Mime extends Component {
 		this.renderShapes = this.renderShapes.bind(this)
 	}
 
+	renderShapes(){
+		if (this.props.mimeObjects.length) {
+			return this.props.mimeObjects.map(shape => {
+				return (<Circle key={shape.key} x={shape.x} y={shape.y} radius={shape.radius} stroke='black' strokeWidth='2' />)
+			})
+		} else {
+			return null
+		}
+	}
+
 	render() {
 		return (
 			<section>
@@ -31,6 +41,9 @@ class Mime extends Component {
 						/>
 					</Layer>
 					{/* All wireframe shapes will be rendered in this new layer */}
+					<Layer>
+						{this.renderShapes()}
+					</Layer>
 				</Stage>
 			</section>
 		)
