@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Stage, Layer, Image, Circle } from 'react-konva'
 import socket from '../socket'
+import { connect } from 'react-redux'
 
 // These dimensions control the size of the canvas and Image component that forms the drawing surface
 const drawingHeight = window.innerHeight - 25
 const drawingWidth = window.innerWidth - 25
 
-export default class Whiteboard extends Component {
+class Whiteboard extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -105,3 +106,10 @@ export default class Whiteboard extends Component {
 		)
 	}
 }
+
+const mapStateToProps = state => {
+	const { mimeObjects } = state
+	return { mimeObjects }
+}
+
+export default connect(mapStateToProps)(Whiteboard)
