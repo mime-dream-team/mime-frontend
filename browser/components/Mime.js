@@ -27,12 +27,13 @@ class Mime extends Component {
 		}
 	}
 
-	// Note to fix: not adding the dispatch method to component properly
 	handleDragEnd(shape){
 		return (event) => {
-			shape.x = event.target.x()
-			shape.y = event.target.y()
-			this.props.dispatch(updateShapePosition(shape))
+			// Create a copy of the shape object to avoid mutating the state
+			let updatedShape = Object.assign({}, shape)
+			updatedShape.x = event.target.x()
+			updatedShape.y = event.target.y()
+			this.props.updateShapePosition(updatedShape)
 		}
 	}
 
@@ -65,4 +66,8 @@ const mapStateToProps = state => {
 	return { mimeObjects }
 }
 
-export default connect(mapStateToProps)(Mime)
+const mapDispatchToProps = {
+	updateShapePosition
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Mime)
