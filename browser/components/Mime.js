@@ -3,6 +3,7 @@ import { Stage, Layer, Circle, Line, Rect, RegularPolygon } from 'react-konva'
 import socket from '../socket'
 import { connect } from 'react-redux'
 import Whiteboard from './Whiteboard'
+import Transform from './Transform'
 import { updateShapePosition } from '../store/reducers/mimeReducer'
 
 // To do: The mime canvas will be a fixed pixel size, which will be received on props
@@ -18,18 +19,49 @@ class Mime extends Component {
 		this.renderShapes = this.renderShapes.bind(this)
 	}
 
-	renderShapes(){
+	renderShapes() {
 		if (this.props.mimeObjects.length) {
 			return this.props.mimeObjects.map((shape, index) => {
-				switch (shape.type){
+				switch (shape.type) {
 				case 'circle': {
-					return <Circle key={index = 'c'} x={shape.x} y={shape.y} radius={shape.radius} stroke='blue' strokeWidth='4' draggable='true' onDragEnd={this.handleDragEnd(shape)} />
+					return (
+						<Layer>
+							<Circle
+								name={'shape' + index}
+								key={index + 'c'}
+								x={shape.x}
+								y={shape.y}
+								radius={shape.radius}
+								stroke='blue'
+								strokeWidth='4'
+								draggable='true'
+								onDragEnd={this.handleDragEnd(shape)}
+							/>
+							<Transform shapeName={'shape' + index} />
+						</Layer>
+					)
 				}
 				case 'square': {
-					return <Rect key={index = 's'} x={shape.x} y={shape.y} width={shape.width} height={shape.height} stroke='red' strokeWidth='4' draggable='true' onDragEnd={this.handleDragEnd(shape)} />
+					return (
+						<Layer>
+							<Rect
+								name={'shape' + index}
+								key={index + 's'}
+								x={shape.x}
+								y={shape.y}
+								width={shape.width}
+								height={shape.height}
+								stroke='red'
+								strokeWidth='4'
+								draggable='true'
+								onDragEnd={this.handleDragEnd(shape)}
+							/>
+							<Transform shapeName={'shape' + index} />
+						</Layer>
+					)
 				}
 				default: {
-					return <Circle key={shape.key} x={shape.x} y={shape.y} radius={shape.radius} stroke='black' strokeWidth='4' draggable='true' onDragEnd={this.handleDragEnd(shape)} />
+					return null
 				}
 				}
 			})
@@ -38,8 +70,8 @@ class Mime extends Component {
 		}
 	}
 
-	handleDragEnd(shape){
-		return (event) => {
+	handleDragEnd(shape) {
+		return event => {
 			// Create a copy of the shape object to avoid mutating the state
 			let updatedShape = Object.assign({}, shape)
 			updatedShape.x = event.target.x()
@@ -64,10 +96,8 @@ class Mime extends Component {
 							height={drawingHeight}
 						/>
 					</Layer>
-					{/* All wireframe shapes will be rendered in this new layer */}
-					<Layer>
-						{this.renderShapes()}
-					</Layer>
+					{/* All wireframe shapes need their own layer and their own Transform */}
+					{this.renderShapes()}
 				</Stage>
 			</section>
 		)
@@ -83,4 +113,7 @@ const mapDispatchToProps = {
 	updateShapePosition
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Mime)
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Mime)
