@@ -1,9 +1,12 @@
 const Sequelize = require('sequelize')
 const db = require('./_db')
-const User = require('./models/User')
 const Mime = require('./models/Mime')
+const Shape = require('./models/Shape')
 
-// import all models here
-// define all relationships here
+Mime.hasMany(Shape)
+// 'getShapes', 'setShapes', 'createShape', 'addShape', 'addShapes', 'removeShape', 'removeShapes', 'hasShape', 'hasShapes', and 'countShapes'
 
-module.exports = { db, User, Mime }
+Shape.belongsTo(Mime)
+// 'getMime', 'setMime', and 'createMime'
+
+module.exports = { db, Mime, Shape }
