@@ -11,6 +11,8 @@
 	"author": "lizz thabet",
 	"license": "ISC",
 	"dependencies": {
+		"@tensorflow/tfjs": "^0.11.7",
+		"@tensorflow/tfjs-node": "^0.1.7",
 		"axios": "^0.18.0",
 		"body-parser": "^1.18.3",
 		"connect-session-sequelize": "^5.2.1",
