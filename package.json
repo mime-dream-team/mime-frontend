@@ -36,7 +36,8 @@
 		"redux-thunk": "^2.3.0",
 		"sequelize": "^4.37.10",
 		"socket.io": "^2.1.1",
-		"socket.io-client": "^2.1.1"
+		"socket.io-client": "^2.1.1",
+		"uniqid": "^5.0.3"
 	},
 	"devDependencies": {
 		"babel-core": "^6.26.3",
