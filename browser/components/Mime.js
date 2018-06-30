@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Whiteboard from './Whiteboard'
 import Transform from './Transform'
 import { updateShapePosition } from '../store/reducers/mimeReducer'
+import 'konva';
 
 // To do: The mime canvas will be a fixed pixel size, which will be received on props
 // These dimensions control the size of the canvas and Image component that forms the drawing surface
@@ -17,11 +18,35 @@ class Mime extends Component {
 		this.state = {}
 		this.stage = React.createRef()
 		this.renderShapes = this.renderShapes.bind(this)
+		this.handleClickShapes = this.handleClickShapes.bind(this)
+		this.handleAttachTransform = this.handleAttachTransform.bind(this)
+	}
+
+	handleClickShapes(e){
+		if(e.target.className === 'Image'){
+			const transformers = this.stage.current._stage.find('Transformer')
+			if(transformers.length){
+				transformers.forEach(trans => {
+					const layer = trans.getLayer()
+					trans.destroy()
+					layer.draw()	
+				});
+			}
+		}
+	}
+
+	handleAttachTransform(e){
+		const shape = e.target
+		const tr = new Konva.Transformer()
+		const layer = shape.getLayer()
+		layer.add(tr)
+		tr.attachTo(e.target)
+		layer.draw()
 	}
 
 	renderShapes() {
 		if (this.props.mimeObjects.length) {
-			return this.props.mimeObjects.map((shape, index) => {
+			let mimeShapes = this.props.mimeObjects.map((shape, index) => {
 				switch (shape.type) {
 				case 'circle': {
 					return (
@@ -36,8 +61,8 @@ class Mime extends Component {
 								strokeWidth='4'
 								draggable='true'
 								onDragEnd={this.handleDragEnd(shape)}
+								onClick={this.handleAttachTransform}
 							/>
-							<Transform shapeName={'shape' + index} />
 						</Layer>
 					)
 				}
@@ -55,8 +80,8 @@ class Mime extends Component {
 								strokeWidth='4'
 								draggable='true'
 								onDragEnd={this.handleDragEnd(shape)}
+								onClick={this.handleAttachTransform}
 							/>
-							<Transform shapeName={'shape' + index} />
 						</Layer>
 					)
 				}
@@ -65,6 +90,7 @@ class Mime extends Component {
 				}
 				}
 			})
+			return mimeShapes
 		} else {
 			return null
 		}
@@ -88,6 +114,7 @@ class Mime extends Component {
 					width={drawingWidth}
 					height={drawingHeight}
 					ref={this.stage}
+					onClick={this.handleClickShapes}
 				>
 					<Layer>
 						<Whiteboard
