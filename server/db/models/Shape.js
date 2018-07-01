@@ -30,7 +30,6 @@ const Shape = db.define('shape', {
 		get(){
 			return JSON.stringify([ this.getDataValue('x'), this.getDataValue('y'), this.getDataValue('x2'), this.getDataValue('y2') ])
 		}
-		// Needs to be an array of x and y coordinates
 	}
 })
 
