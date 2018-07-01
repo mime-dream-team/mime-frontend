@@ -56,7 +56,7 @@ class Mime extends Component {
 								key={index + 'c'}
 								x={shape.x}
 								y={shape.y}
-								radius={shape.radius}
+								radius={shape.radius + .01}
 								stroke='blue'
 								strokeWidth='4'
 								draggable='true'
@@ -74,8 +74,8 @@ class Mime extends Component {
 								key={index + 's'}
 								x={shape.x}
 								y={shape.y}
-								width={shape.width}
-								height={shape.height}
+								width={shape.width + .01}
+								height={shape.height + .01}
 								stroke='red'
 								strokeWidth='4'
 								draggable='true'
