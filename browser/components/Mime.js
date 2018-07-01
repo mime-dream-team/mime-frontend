@@ -4,8 +4,11 @@ import socket from '../socket'
 import { connect } from 'react-redux'
 import Whiteboard from './Whiteboard'
 import Transform from './Transform'
-import { updateShapePosition } from '../store/reducers/mimeReducer'
-import 'konva';
+import {
+	updateShapePosition,
+	deleteOneShape
+} from '../store/reducers/mimeReducer'
+import 'konva'
 
 // To do: The mime canvas will be a fixed pixel size, which will be received on props
 // These dimensions control the size of the canvas and Image component that forms the drawing surface
@@ -20,22 +23,28 @@ class Mime extends Component {
 		this.renderShapes = this.renderShapes.bind(this)
 		this.handleClickShapes = this.handleClickShapes.bind(this)
 		this.handleAttachTransform = this.handleAttachTransform.bind(this)
+		this.handleShapeDelete = this.handleShapeDelete.bind(this)
 	}
 
-	handleClickShapes(e){
-		if(e.target.className === 'Image'){
+	handleClickShapes(e) {
+		if (e.target.className === 'Image') {
 			const transformers = this.stage.current._stage.find('Transformer')
-			if(transformers.length){
-				transformers.forEach(trans => {
+			if (transformers.length) {
+				transformers.forEach((trans) => {
 					const layer = trans.getLayer()
 					trans.destroy()
-					layer.draw()	
-				});
+					layer.draw()
+				})
 			}
 		}
 	}
 
-	handleAttachTransform(e){
+	handleShapeDelete(e) {
+		const shapeToDelete = e.target
+		this.props.updateShapePosition(shapeToDelete)
+	}
+
+	handleAttachTransform(e) {
 		const shape = e.target
 		const tr = new Konva.Transformer()
 		const layer = shape.getLayer()
@@ -56,12 +65,13 @@ class Mime extends Component {
 								key={index + 'c'}
 								x={shape.x}
 								y={shape.y}
-								radius={shape.radius + .01}
+								radius={shape.radius + 0.01}
 								stroke='blue'
 								strokeWidth='4'
 								draggable='true'
 								onDragEnd={this.handleDragEnd(shape)}
 								onClick={this.handleAttachTransform}
+								onDblClick={this.handleShapeDelete}
 							/>
 						</Layer>
 					)
@@ -74,13 +84,14 @@ class Mime extends Component {
 								key={index + 's'}
 								x={shape.x}
 								y={shape.y}
-								width={shape.width + .01}
-								height={shape.height + .01}
+								width={shape.width + 0.01}
+								height={shape.height + 0.01}
 								stroke='red'
 								strokeWidth='4'
 								draggable='true'
 								onDragEnd={this.handleDragEnd(shape)}
 								onClick={this.handleAttachTransform}
+								onDblClick={this.handleShapeDelete}
 							/>
 						</Layer>
 					)
@@ -97,7 +108,7 @@ class Mime extends Component {
 	}
 
 	handleDragEnd(shape) {
-		return event => {
+		return (event) => {
 			// Create a copy of the shape object to avoid mutating the state
 			let updatedShape = Object.assign({}, shape)
 			updatedShape.x = event.target.x()
@@ -131,13 +142,14 @@ class Mime extends Component {
 	}
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
 	const { mimeObjects } = state
 	return { mimeObjects }
 }
 
 const mapDispatchToProps = {
-	updateShapePosition
+	updateShapePosition,
+	deleteOneShape
 }
 
 export default connect(
