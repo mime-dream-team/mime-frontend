@@ -31,6 +31,30 @@ router.post('/:urlId/shapes', (req, res, next) => {
 		.catch(next)
 })
 
+
+// Update a mime with a group of shapes from the entire state
+router.put('/:urlId/shapes', (req, res, next) => {
+	console.log(req)
+	const { urlId } = req.params
+	const { mimeObjects } = req.body
+	Promise.all(mimeObjects.map(shape => {
+		delete shape.points // remove any reference to this virual field
+		delete shape.id // remove any reference to the shape id
+		return Shape.findOrCreate({ where: { uniqueId: shape.uniqueId }, defaults: shape })
+	}))
+		.then(shapeResults => {
+			// because `findOrCreate` returns an array with the shape and boolean,
+			// it's necessary to destructure it
+			let shapes = shapeResults.map(([ shape, created ]) => shape)
+			// while we have access to the shapes, find the mime and relate the shapes to it
+			return Mime.findOne({ where: { urlId } })
+				.then(mime => mime.setShapes(shapes))
+		})
+		.then(mime => Mime.findWithShapes(mime.urlId))
+		.then(mimeWithShapes => res.send(mimeWithShapes))
+		.catch(next)
+})
+
 // Update the properties of a shape associated with a mime
 router.put('/:urlId/shapes/:uniqueId', (req, res, next) => {
 	const { urlId, uniqueId } = req.params
