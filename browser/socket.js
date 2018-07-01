@@ -1,6 +1,6 @@
 import io from 'socket.io-client'
 import store from './store/store'
-import { addNewShape } from './store/reducers/shapeReducer'
+import { addNewShape } from './store/reducers/mimeReducer'
 
 const socket = io(window.location.origin)
 

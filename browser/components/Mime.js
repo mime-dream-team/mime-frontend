@@ -4,8 +4,8 @@ import socket from '../socket'
 import { connect } from 'react-redux'
 import Whiteboard from './Whiteboard'
 import Transform from './Transform'
-import { updateShapePosition } from '../store/reducers/shapeReducer'
-import 'konva';
+import { updateShapePosition } from '../store/reducers/mimeReducer'
+import 'konva'
 
 // To do: The mime canvas will be a fixed pixel size, which will be received on props
 // These dimensions control the size of the canvas and Image component that forms the drawing surface
