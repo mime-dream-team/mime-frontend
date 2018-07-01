@@ -47,16 +47,17 @@ class Mime extends Component {
 	renderShapes() {
 		if (this.props.shapes.length) {
 			let mimeShapes = this.props.shapes.map((shape, index) => {
+				console.log('RUNNING SHAPES', shape, shape.type)
 				switch (shape.type) {
 				case 'circle': {
 					return (
-						<Layer>
+						<Layer key={shape.uniqueId}>
 							<Circle
 								name={'shape' + index}
-								key={index + 'c'}
-								x={shape.x}
-								y={shape.y}
-								radius={shape.radius + .01}
+								key={shape.uniqueId}
+								x={parseInt(shape.x, 10)}
+								y={parseInt(shape.y, 10)}
+								radius={parseInt(shape.radius, 10) + .01}
 								stroke='blue'
 								strokeWidth='4'
 								draggable='true'
@@ -68,14 +69,14 @@ class Mime extends Component {
 				}
 				case 'square': {
 					return (
-						<Layer>
+						<Layer key={shape.uniqueId}>
 							<Rect
 								name={'shape' + index}
-								key={index + 's'}
-								x={shape.x}
-								y={shape.y}
-								width={shape.width + .01}
-								height={shape.height + .01}
+								key={shape.uniqueId}
+								x={parseInt(shape.x, 10)}
+								y={parseInt(shape.y, 10)}
+								width={parseInt(shape.width, 10) + .01}
+								height={parseInt(shape.height, 10) + .01}
 								stroke='red'
 								strokeWidth='4'
 								draggable='true'
@@ -121,6 +122,7 @@ class Mime extends Component {
 							className='mime__whiteboard'
 							width={drawingWidth}
 							height={drawingHeight}
+							urlId={this.props.urlId}
 						/>
 					</Layer>
 					{/* All wireframe shapes need their own layer and their own Transform */}
@@ -132,8 +134,7 @@ class Mime extends Component {
 }
 
 const mapStateToProps = state => {
-	const { shapes } = state
-	return { shapes }
+	return state
 }
 
 const mapDispatchToProps = {

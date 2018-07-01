@@ -49,8 +49,6 @@ export const saveMimeThunk = state => dispatch => {
 		.then(savedMime => dispatch(saveMime(savedMime)))
 }
 
-// Might need to convert 'addNewShape' to a thunk, because it's going to receive the interpreted shape from the server and then it will save the interpreted shape from the server
-
 const initialState = {
 	id: 0,
 	urlId: '',
@@ -70,7 +68,7 @@ const reducer = (state = initialState, action) => {
 		return Object.assign({}, state, { shapes: [ ...state.shapes, action.interpretedShape ] })
 	case UPDATE_SHAPE_POSITION:
 		// filter out any shapes that don't have the updated shape's id, then add the updated shape to the array
-		return Object.assign({}, state, { shapes: [ ...state.shapes.filter(shape => shape.key !== action.updatedShape.key), action.updatedShape ] })
+		return Object.assign({}, state, { shapes: [ ...state.shapes.filter(shape => shape.id !== action.updatedShape.id), action.updatedShape ] })
 	default:
 		return state
 	}
