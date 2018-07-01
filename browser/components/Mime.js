@@ -56,6 +56,7 @@ class Mime extends Component {
 	renderShapes() {
 		if (this.props.mimeObjects.length) {
 			let mimeShapes = this.props.mimeObjects.map((shape, index) => {
+				console.log(shape)
 				switch (shape.type) {
 				case 'circle': {
 					return (
