@@ -11,6 +11,8 @@
 	"author": "lizz thabet",
 	"license": "ISC",
 	"dependencies": {
+		"@tensorflow/tfjs": "^0.11.7",
+		"@tensorflow/tfjs-node": "^0.1.7",
 		"axios": "^0.18.0",
 		"body-parser": "^1.18.3",
 		"connect-session-sequelize": "^5.2.1",
@@ -34,7 +36,8 @@
 		"redux-thunk": "^2.3.0",
 		"sequelize": "^4.37.10",
 		"socket.io": "^2.1.1",
-		"socket.io-client": "^2.1.1"
+		"socket.io-client": "^2.1.1",
+		"uniqid": "^5.0.3"
 	},
 	"devDependencies": {
 		"babel-core": "^6.26.3",

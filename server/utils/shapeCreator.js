@@ -10,6 +10,7 @@ const creators = {
 		const [width, height] = widthAndHeight(stroke)
 		const [x,y] = centerPoint(stroke)
 		return {
+			type: 'circle',
 			radius: (width + height)/4,
 			x,
 			y
@@ -19,6 +20,7 @@ const creators = {
 		const [width, height] = widthAndHeight(stroke)
 		const [x, y] = topLeftPoint(stroke)
 		return {
+			type: 'square',
 			width,
 			height,
 			x,
