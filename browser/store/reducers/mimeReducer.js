@@ -5,6 +5,7 @@ const CREATE_MIME = 'CREATE_MIME'
 const LOAD_MIME = 'LOAD_MIME'
 const SAVE_MIME = 'SAVE_MIME'
 const ADD_NEW_SHAPE = 'ADD_NEW_SHAPE'
+const DELETE_SHAPE = 'DELETE_SHAPE'
 const UPDATE_SHAPE_POSITION = 'UPDATE_SHAPE_POSITION'
 const CHANGE_SHAPE_SIZE = 'CHANGE_SHAPE_SIZE'
 
@@ -25,7 +26,11 @@ export const addNewShape = interpretedShape => {
 	return { type: ADD_NEW_SHAPE, interpretedShape }
 }
 
-export const updateShapePosition = updatedShape => {
+export const deleteShape = (deletedShape) => {
+	return { type: DELETE_SHAPE, deletedShape }
+}
+
+export const updateShapePosition = (updatedShape) => {
 	return { type: UPDATE_SHAPE_POSITION, updatedShape }
 }
 
@@ -69,9 +74,21 @@ const reducer = (state = initialState, action) => {
 		return Object.assign({}, state, { shapes: action.mime.shapes })
 	case ADD_NEW_SHAPE:
 		return Object.assign({}, state, { shapes: [ ...state.shapes, action.interpretedShape ] })
+	case DELETE_SHAPE:
+		// filter out shapes that don't have the deleted shape id
+		return Object.assign({}, state, {
+			shapes: [
+				...state.shapes.filter((shape) => shape.id !== action.deletedShape.id)
+			]
+		})
 	case UPDATE_SHAPE_POSITION:
 		// filter out any shapes that don't have the updated shape's id, then add the updated shape to the array
-		return Object.assign({}, state, { shapes: [ ...state.shapes.filter(shape => shape.id !== action.updatedShape.id), action.updatedShape ] })
+		return Object.assign({}, state, {
+			shapes: [
+				...state.shapes.filter((shape) => shape.id !== action.updatedShape.id),
+				action.updatedShape
+			]
+		})
 	default:
 		return state
 	}

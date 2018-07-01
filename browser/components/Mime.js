@@ -4,7 +4,7 @@ import socket from '../socket'
 import { connect } from 'react-redux'
 import Whiteboard from './Whiteboard'
 import Transform from './Transform'
-import { updateShapePosition, loadMimeThunk, saveMimeThunk } from '../store/reducers/mimeReducer'
+import { updateShapePosition, loadMimeThunk, saveMimeThunk, deleteShape } from '../store/reducers/mimeReducer'
 import 'konva'
 
 // To do: The mime canvas will be a fixed pixel size, which will be received on props
@@ -20,6 +20,7 @@ class Mime extends Component {
 		this.renderShapes = this.renderShapes.bind(this)
 		this.handleClickShapes = this.handleClickShapes.bind(this)
 		this.handleAttachTransform = this.handleAttachTransform.bind(this)
+		this.handleShapeDelete = this.handleShapeDelete.bind(this)
 	}
 
 	componentDidMount(){
@@ -50,7 +51,23 @@ class Mime extends Component {
 		}
 	}
 
-	handleAttachTransform(e){
+	handleDragEnd(shape) {
+		return (e) => {
+			// Create a copy of the shape object to avoid mutating the state
+			let updatedShape = Object.assign({}, shape)
+			updatedShape.x = e.target.x()
+			updatedShape.y = e.target.y()
+			this.props.updateShapePosition(updatedShape)
+		}
+	}
+
+	handleShapeDelete(shape) {
+		return (e) => {
+			this.props.deleteShape(shape)
+		}
+	}
+
+	handleAttachTransform(e) {
 		const shape = e.target
 		const tr = new Konva.Transformer()
 		const layer = shape.getLayer()
@@ -77,6 +94,7 @@ class Mime extends Component {
 								draggable='true'
 								onDragEnd={this.handleDragEnd(shape)}
 								onClick={this.handleAttachTransform}
+								onDblClick={this.handleShapeDelete(shape)}
 							/>
 						</Layer>
 					)
@@ -96,6 +114,7 @@ class Mime extends Component {
 								draggable='true'
 								onDragEnd={this.handleDragEnd(shape)}
 								onClick={this.handleAttachTransform}
+								onDblClick={this.handleShapeDelete(shape)}
 							/>
 						</Layer>
 					)
@@ -110,16 +129,6 @@ class Mime extends Component {
 			return null
 		}
 	}
-
-	handleDragEnd(shape) {
-		return event => {
-			// Create a copy of the shape object to avoid mutating the state
-			let updatedShape = Object.assign({}, shape)
-			updatedShape.x = event.target.x()
-			updatedShape.y = event.target.y()
-			this.props.updateShapePosition(updatedShape)
-		}
-	} //0 mean unit variance
 
 	render() {
 		return (
@@ -154,7 +163,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
 	updateShapePosition,
 	loadMimeThunk,
-	saveMimeThunk
+	saveMimeThunk,
+	deleteShape
 }
 
 export default connect(
