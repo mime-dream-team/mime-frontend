@@ -6,7 +6,6 @@ const Root = () => {
 	return (
 		<section>
 			<Routes />
-			<Mime />
 		</section>
 	)
 }
