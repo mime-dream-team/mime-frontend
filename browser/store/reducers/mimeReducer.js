@@ -38,7 +38,6 @@ export const createMimeThunk = () => dispatch => {
 }
 
 export const loadMimeThunk = urlId => dispatch => {
-	console.log('THUNK', urlId)
 	axios.get(`/mimes/${urlId}`)
 		.then(res => res.data)
 		.then(mime => dispatch(loadMime(mime)))

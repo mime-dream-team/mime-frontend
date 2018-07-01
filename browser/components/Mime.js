@@ -4,7 +4,7 @@ import socket from '../socket'
 import { connect } from 'react-redux'
 import Whiteboard from './Whiteboard'
 import Transform from './Transform'
-import { updateShapePosition, loadMimeThunk } from '../store/reducers/mimeReducer'
+import { updateShapePosition, loadMimeThunk, saveMimeThunk } from '../store/reducers/mimeReducer'
 import 'konva'
 
 // To do: The mime canvas will be a fixed pixel size, which will be received on props
@@ -23,17 +23,18 @@ class Mime extends Component {
 	}
 
 	componentDidMount(){
-		// fetch the mime
 		const { urlId } = this.props.match.params
 		try {
 			this.props.loadMimeThunk(urlId)
 		} catch (error) {
 			console.log(error)
+			// TO DO: Create a 404 page and push to history if mime is not found
 		}
 	}
 
 	componentWillUnmount(){
-		// leave mime
+		const { id, urlId, shapes } = this.props
+		this.props.saveMimeThunk({ id, urlId, shapes })
 	}
 
 	handleClickShapes(e){
@@ -152,7 +153,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
 	updateShapePosition,
-	loadMimeThunk
+	loadMimeThunk,
+	saveMimeThunk
 }
 
 export default connect(
