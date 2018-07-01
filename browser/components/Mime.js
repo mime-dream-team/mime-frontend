@@ -4,10 +4,7 @@ import socket from '../socket'
 import { connect } from 'react-redux'
 import Whiteboard from './Whiteboard'
 import Transform from './Transform'
-import {
-	updateShapePosition,
-	deleteOneShape
-} from '../store/reducers/mimeReducer'
+import { updateShapePosition, loadMimeThunk, saveMimeThunk, deleteShape } from '../store/reducers/mimeReducer'
 import 'konva'
 
 // To do: The mime canvas will be a fixed pixel size, which will be received on props
@@ -26,22 +23,48 @@ class Mime extends Component {
 		this.handleShapeDelete = this.handleShapeDelete.bind(this)
 	}
 
-	handleClickShapes(e) {
-		if (e.target.className === 'Image') {
+	componentDidMount(){
+		const { urlId } = this.props.match.params
+		try {
+			this.props.loadMimeThunk(urlId)
+		} catch (error) {
+			console.log(error)
+			// TO DO: Create a 404 page and push to history if mime is not found
+		}
+	}
+
+	componentWillUnmount(){
+		const { id, urlId, shapes } = this.props
+		this.props.saveMimeThunk({ id, urlId, shapes })
+	}
+
+	handleClickShapes(e){
+		if (e.target.className === 'Image'){
 			const transformers = this.stage.current._stage.find('Transformer')
-			if (transformers.length) {
-				transformers.forEach((trans) => {
+			if (transformers.length){
+				transformers.forEach(trans => {
 					const layer = trans.getLayer()
 					trans.destroy()
 					layer.draw()
-				})
+				});
 			}
 		}
 	}
 
-	handleShapeDelete(e) {
-		const shapeToDelete = e.target
-		this.props.updateShapePosition(shapeToDelete)
+	handleDragEnd(shape) {
+		return (e) => {
+			// Create a copy of the shape object to avoid mutating the state
+			let updatedShape = Object.assign({}, shape)
+			updatedShape.x = e.target.x()
+			updatedShape.y = e.target.y()
+			this.props.updateShapePosition(updatedShape)
+		}
+	}
+
+	handleShapeDelete(shape) {
+		return (e) => {
+			this.props.deleteShape(shape)
+		}
 	}
 
 	handleAttachTransform(e) {
@@ -54,49 +77,45 @@ class Mime extends Component {
 	}
 
 	renderShapes() {
-		if (this.props.mimeObjects.length) {
-			let mimeShapes = this.props.mimeObjects.map((shape, index) => {
-<<<<<<< HEAD
+		if (this.props.shapes.length) {
+			let mimeShapes = this.props.shapes.map((shape, index) => {
 				if(shape.radius < 0) shape.radius *= -1
-=======
-				if (shape.radius < 0) shape.radius *= -1
->>>>>>> 792a7735ea18036ff7b7826f9d9765f60f992a2c
 				switch (shape.type) {
 				case 'circle': {
 					return (
-						<Layer>
+						<Layer key={shape.uniqueId}>
 							<Circle
 								name={'shape' + index}
-								key={index + 'c'}
-								x={shape.x}
-								y={shape.y}
-								radius={shape.radius + 0.01}
+								key={shape.uniqueId}
+								x={parseInt(shape.x, 10)}
+								y={parseInt(shape.y, 10)}
+								radius={parseInt(shape.radius, 10) + .01}
 								stroke='blue'
 								strokeWidth='4'
 								draggable='true'
 								onDragEnd={this.handleDragEnd(shape)}
 								onClick={this.handleAttachTransform}
-								onDblClick={this.handleShapeDelete}
+								onDblClick={this.handleShapeDelete(shape)}
 							/>
 						</Layer>
 					)
 				}
 				case 'square': {
 					return (
-						<Layer>
+						<Layer key={shape.uniqueId}>
 							<Rect
 								name={'shape' + index}
-								key={index + 's'}
-								x={shape.x}
-								y={shape.y}
-								width={shape.width + 0.01}
-								height={shape.height + 0.01}
+								key={shape.uniqueId}
+								x={parseInt(shape.x, 10)}
+								y={parseInt(shape.y, 10)}
+								width={parseInt(shape.width, 10) + .01}
+								height={parseInt(shape.height, 10) + .01}
 								stroke='red'
 								strokeWidth='4'
 								draggable='true'
 								onDragEnd={this.handleDragEnd(shape)}
 								onClick={this.handleAttachTransform}
-								onDblClick={this.handleShapeDelete}
+								onDblClick={this.handleShapeDelete(shape)}
 							/>
 						</Layer>
 					)
@@ -130,16 +149,6 @@ class Mime extends Component {
 		}
 	}
 
-	handleDragEnd(shape) {
-		return (event) => {
-			// Create a copy of the shape object to avoid mutating the state
-			let updatedShape = Object.assign({}, shape)
-			updatedShape.x = event.target.x()
-			updatedShape.y = event.target.y()
-			this.props.updateShapePosition(updatedShape)
-		}
-	} //0 mean unit variance
-
 	render() {
 		return (
 			<section>
@@ -155,6 +164,7 @@ class Mime extends Component {
 							className='mime__whiteboard'
 							width={drawingWidth}
 							height={drawingHeight}
+							urlId={this.props.urlId}
 						/>
 					</Layer>
 					{/* All wireframe shapes need their own layer and their own Transform */}
@@ -165,14 +175,15 @@ class Mime extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	const { mimeObjects } = state
-	return { mimeObjects }
+const mapStateToProps = state => {
+	return state
 }
 
 const mapDispatchToProps = {
 	updateShapePosition,
-	deleteOneShape
+	loadMimeThunk,
+	saveMimeThunk,
+	deleteShape
 }
 
 export default connect(
