@@ -1,3 +1,7 @@
+const sort = (a, b) => {
+    return (a - b) 
+}
+
 //Top Left
 const topLeftPoint = (stroke) => {
 	let lowestXValue = stroke[0][0]
@@ -15,8 +19,8 @@ const topLeftPoint = (stroke) => {
 
 //Center
 const centerPoint = (stroke) => {
-	const xValues = stroke.map(point => point[0]).sort()
-	const yValues = stroke.map(point => point[1]).sort()
+	const xValues = stroke.map(point => point[0]).sort(sort)
+	const yValues = stroke.map(point => point[1]).sort(sort)
 
 	const smallestX = xValues[0]
 	const greatestX = xValues[xValues.length - 1]
@@ -32,21 +36,21 @@ const centerPoint = (stroke) => {
 
 //Width/Height
 const widthAndHeight = (stroke) => {
-	const xValues = stroke.map(point => point[0]).sort()
-	const yValues = stroke.map(point => point[1]).sort()
-
+	const xValues = stroke.map(point => point[0]).sort(sort)
+	const yValues = stroke.map(point => point[1]).sort(sort)
+	console.log(xValues)
+	console.log(yValues)
 	const smallestX = xValues[0]
 	const greatestX = xValues[xValues.length - 1]
-
+	console.log('Xs',smallestX, greatestX)
 	const smallestY = yValues[0]
 	const greatestY = yValues[yValues.length - 1]
-
+	console.log('Ys',smallestY, greatestY)
 	const width = greatestX - smallestX
 	const height = greatestY - smallestY
 
 	return [width, height]
 }
-
 
 module.exports = {
 	topLeftPoint,
