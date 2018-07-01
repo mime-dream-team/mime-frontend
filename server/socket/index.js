@@ -1,6 +1,25 @@
 const getPrediction = require('./../model')
 const processTrainingData = require('./../utils/dataTransforms/processTrainingData')
 const shapeCreator = require('./../utils/shapeCreator')
+
+function indexOfMax(arr) {
+	if (arr.length === 0) {
+		return -1;
+	}
+
+	var max = arr[0];
+	var maxIndex = 0;
+
+	for (var i = 1; i < arr.length; i++) {
+		if (arr[i] > max) {
+			maxIndex = i;
+			max = arr[i];
+		}
+	}
+
+	return maxIndex;
+}
+
 module.exports = io => {
 	io.on('connection', socket => {
 		console.log(socket.id, ' has made a persistent connection to the server!')
@@ -13,8 +32,10 @@ module.exports = io => {
 			let processedStroke = processTrainingData([ { stroke: [ strokePool ], type: 'unknown' } ]).shapeTrainingDataPoints[0]
 			getPrediction(processedStroke)
 				.then(shape => {
-					const [ circle, square ] = shape
-					const shapeData = shapeCreator(strokePool, circle > square ? 'circle' : 'square')
+					const shapeName = [ 'circle', 'square', 'triangle' ]
+
+					const predictedShapeName = shapeName[indexOfMax(shape)]
+					const shapeData = shapeCreator(strokePool, predictedShapeName)
 					socket.emit('addNewShape', shapeData)
 				})
 		})
