@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import mimeReducer from './mimeReducer'
+import shapeReducer from './shapeReducer'
 
 // each reducer will track a single piece of the state, ie:
 // state = { template: [everything managed by templateReducer] }
-export default combineReducers({ mimeObjects: mimeReducer })
+export default combineReducers({ shapes: shapeReducer })
