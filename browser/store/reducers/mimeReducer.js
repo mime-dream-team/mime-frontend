@@ -32,12 +32,15 @@ export const updateShapePosition = updatedShape => {
 // Thunks
 export const createMimeThunk = () => dispatch => {
 	axios.post('/mimes')
+		.then(res => res.data)
 		.then(mime => dispatch(createMime(mime)))
 		.catch(console.error)
 }
 
 export const loadMimeThunk = urlId => dispatch => {
-	axios.put(`/mimes/${urlId}`)
+	console.log('THUNK', urlId)
+	axios.get(`/mimes/${urlId}`)
+		.then(res => res.data)
 		.then(mime => dispatch(loadMime(mime)))
 		.catch(console.error)
 }
@@ -46,6 +49,7 @@ export const loadMimeThunk = urlId => dispatch => {
 export const saveMimeThunk = state => dispatch => {
 	const { urlId, shapes } = state
 	axios.put(`/mimes/${urlId}/shapes`, { shapes })
+		.then(res => res.data)
 		.then(savedMime => dispatch(saveMime(savedMime)))
 }
 

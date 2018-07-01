@@ -8,7 +8,7 @@ router.post('/', (req, res, next) => {
 	Mime.create({})
 		.then(mime => {
 			mime.shapes = []
-			res.send(mime)
+			res.json(mime)
 		})
 })
 
@@ -16,7 +16,7 @@ router.post('/', (req, res, next) => {
 router.get('/:urlId', (req, res, next) => {
 	const { urlId } = req.params
 	Mime.findWithShapes(urlId)
-		.then(mime => res.send(mime))
+		.then(mime => res.json(mime))
 		.catch(next)
 })
 
@@ -27,7 +27,7 @@ router.post('/:urlId/shapes', (req, res, next) => {
 	Mime.findWithShapes(urlId)
 		.then(mime => mime.createShape(shape))
 		.then(createdShape => Mime.findWithShapes(urlId))
-		.then(mime => res.send(mime))
+		.then(mime => res.json(mime))
 		.catch(next)
 })
 
@@ -53,7 +53,7 @@ router.put('/:urlId/shapes', (req, res, next) => {
 				.then(mime => mime.setShapes(updatedShapes))
 		})
 		.then(mime => Mime.findWithShapes(mime.urlId)) // Refactor: Might be able to return the updated shapes array instead of finding again
-		.then(mimeWithShapes => res.send(mimeWithShapes))
+		.then(mimeWithShapes => res.json(mimeWithShapes))
 		.catch(next)
 })
 
@@ -63,7 +63,7 @@ router.put('/:urlId/shapes/:uniqueId', (req, res, next) => {
 	const { shape } = req.body
 	Shape.findOne( { where: { uniqueId } })
 		.then(foundShape => foundShape.update(shape))
-		.then(updatedShape => res.send(updatedShape))
+		.then(updatedShape => res.json(updatedShape))
 		.catch(next)
 })
 
