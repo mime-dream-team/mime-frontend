@@ -38,14 +38,13 @@ const centerPoint = (stroke) => {
 const widthAndHeight = (stroke) => {
 	const xValues = stroke.map(point => point[0]).sort(sort)
 	const yValues = stroke.map(point => point[1]).sort(sort)
-	console.log(xValues)
-	console.log(yValues)
+
 	const smallestX = xValues[0]
 	const greatestX = xValues[xValues.length - 1]
-	console.log('Xs',smallestX, greatestX)
+
 	const smallestY = yValues[0]
 	const greatestY = yValues[yValues.length - 1]
-	console.log('Ys',smallestY, greatestY)
+
 	const width = greatestX - smallestX
 	const height = greatestY - smallestY
 
