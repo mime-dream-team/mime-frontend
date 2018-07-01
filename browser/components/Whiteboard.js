@@ -37,7 +37,10 @@ class Whiteboard extends Component {
 	handleMouseUp = () => {
 		console.log('mouseup')
 		// If there's stroke data after mouse release, emit a draw event to the server
-		if (this.state.strokePool.length) socket.emit('draw', this.state.strokePool)
+		if (this.state.strokePool.length) {
+			socket.emit('draw', this.state.strokePool, this.props.urlId)
+			this.createCanvas()
+		}
 		this.setState({ isDrawing: false, strokePool: [] })
 	}
 
