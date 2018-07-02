@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
-import { Stage, Layer, Circle, Line, Rect, RegularPolygon } from 'react-konva'
-import socket from '../socket'
+import { Stage, Layer, Circle, Rect } from 'react-konva'
 import { connect } from 'react-redux'
 import Whiteboard from './Whiteboard'
-import Transform from './Transform'
-import { updateShapePosition, loadMimeThunk, saveMimeThunk, deleteShape } from '../store/reducers/mimeReducer'
+import {
+	updateShapePosition,
+	loadMimeThunk,
+	saveMimeThunk,
+	deleteShape
+} from '../store/reducers/mimeReducer'
 import 'konva'
 
 // To do: The mime canvas will be a fixed pixel size, which will be received on props
@@ -23,7 +26,7 @@ class Mime extends Component {
 		this.handleShapeDelete = this.handleShapeDelete.bind(this)
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		const { urlId } = this.props.match.params
 		try {
 			this.props.loadMimeThunk(urlId)
@@ -33,20 +36,20 @@ class Mime extends Component {
 		}
 	}
 
-	componentWillUnmount(){
+	componentWillUnmount() {
 		const { id, urlId, shapes } = this.props
 		this.props.saveMimeThunk({ id, urlId, shapes })
 	}
 
-	handleClickShapes(e){
-		if (e.target.className === 'Image'){
+	handleClickShapes(e) {
+		if (e.target.className === 'Image') {
 			const transformers = this.stage.current._stage.find('Transformer')
-			if (transformers.length){
-				transformers.forEach(trans => {
+			if (transformers.length) {
+				transformers.forEach((trans) => {
 					const layer = trans.getLayer()
 					trans.destroy()
 					layer.draw()
-				});
+				})
 			}
 		}
 	}
@@ -88,7 +91,7 @@ class Mime extends Component {
 								key={shape.uniqueId}
 								x={parseInt(shape.x, 10)}
 								y={parseInt(shape.y, 10)}
-								radius={parseInt(shape.radius, 10) + .01}
+								radius={parseInt(shape.radius, 10) + 0.01}
 								stroke='blue'
 								strokeWidth='4'
 								draggable='true'
@@ -107,8 +110,8 @@ class Mime extends Component {
 								key={shape.uniqueId}
 								x={parseInt(shape.x, 10)}
 								y={parseInt(shape.y, 10)}
-								width={parseInt(shape.width, 10) + .01}
-								height={parseInt(shape.height, 10) + .01}
+								width={parseInt(shape.width, 10) + 0.01}
+								height={parseInt(shape.height, 10) + 0.01}
 								stroke='red'
 								strokeWidth='4'
 								draggable='true'
@@ -156,7 +159,7 @@ class Mime extends Component {
 	}
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
 	return state
 }
 

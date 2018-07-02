@@ -1,10 +1,13 @@
 import React from 'react'
-import { withRouter, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import Mime from '../components/Mime'
+import MakeMime from '../components/MakeMime'
+
 
 const Routes = () => {
 	return (
 		<Switch>
+			<Route exact path='/' component={ MakeMime } />
 			<Route exact path='/mime/:urlId' component={ Mime } />
 		</Switch>
 	)
