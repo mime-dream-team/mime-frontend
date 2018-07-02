@@ -1,13 +1,8 @@
 import React, { Component } from 'react'
-import { Stage, Layer, Circle, Rect } from 'react-konva'
+import { Stage, Layer, Circle, Rect, RegularPolygon } from 'react-konva'
 import { connect } from 'react-redux'
 import Whiteboard from './Whiteboard'
-import {
-	updateShapePosition,
-	loadMimeThunk,
-	saveMimeThunk,
-	deleteShape
-} from '../store/reducers/mimeReducer'
+import { updateShape, loadMimeThunk, saveMimeThunk, deleteShape } from '../store/reducers/mimeReducer'
 import 'konva'
 
 // To do: The mime canvas will be a fixed pixel size, which will be received on props
@@ -24,6 +19,8 @@ class Mime extends Component {
 		this.handleClickShapes = this.handleClickShapes.bind(this)
 		this.handleAttachTransform = this.handleAttachTransform.bind(this)
 		this.handleShapeDelete = this.handleShapeDelete.bind(this)
+		this.handleShapeTransform = this.handleShapeTransform.bind(this)
+		this.handleShapeTransformData = this.handleShapeTransformData.bind(this)
 	}
 
 	componentDidMount() {
@@ -60,7 +57,7 @@ class Mime extends Component {
 			let updatedShape = Object.assign({}, shape)
 			updatedShape.x = e.target.x()
 			updatedShape.y = e.target.y()
-			this.props.updateShapePosition(updatedShape)
+			this.props.updateShape(updatedShape)
 		}
 	}
 
@@ -70,13 +67,51 @@ class Mime extends Component {
 		}
 	}
 
-	handleAttachTransform(e) {
-		const shape = e.target
-		const tr = new Konva.Transformer()
-		const layer = shape.getLayer()
-		layer.add(tr)
-		tr.attachTo(e.target)
-		layer.draw()
+	handleAttachTransform(shapeFromState){
+		return (e) => {
+			const shape = e.target
+			const transformerSettings = { rotationSnaps: [ 0, 90, 180, 270, 360 ] }
+			const tr = new Konva.Transformer(transformerSettings)
+			const layer = shape.getLayer()
+			layer.add(tr)
+			tr.attachTo(e.target)
+			layer.draw()
+
+			// rectangles are easy, because we can multiply the scales by the dimensions to get the new dimensions
+			// do we want to all a user to change the proportions of a circle??
+			// circles are tricky, because we need to multiply the scaleX/Y by radius to get new radius
+			// multiply height & width by scaleX and scaleY
+			// take any updated X and Y coordinates
+			shape.on('transformend', (event) => {
+				let newProperties = this.handleShapeTransformData(shape)
+				this.handleShapeTransform(shapeFromState, newProperties)
+				console.log(shape.scaleX(), shape.scaleY())
+			})
+		}
+	}
+
+	handleShapeTransformData(shape){
+		// Return a different newProperties object depending on the shape type
+		// To do: add rotation support!
+		const newProperties = { x: shape.x(), y: shape.y() }
+		switch (shape.className) {
+		case 'Circle':
+			// Multiply the radius by the largest scaled value
+			newProperties.radius = shape.radius() * (shape.scaleX() > shape.scaleY() ? shape.scaleX() : shape.scaleY())
+			break
+		case 'Rect':
+			newProperties.width = shape.width() * shape.scaleX()
+			newProperties.height = shape.height() * shape.scaleY()
+			break
+		default:
+			break
+		}
+		return newProperties
+	}
+
+	handleShapeTransform(shapeFromState, newProperties){
+		const updatedShape = Object.assign({}, shapeFromState, newProperties)
+		this.props.updateShape(updatedShape)
 	}
 
 	renderShapes() {
@@ -93,11 +128,13 @@ class Mime extends Component {
 								x={parseInt(shape.x, 10)}
 								y={parseInt(shape.y, 10)}
 								radius={parseInt(shape.radius, 10) + 0.01}
+								scaleX='1'
+								scaleY='1'
 								stroke='blue'
 								strokeWidth='4'
 								draggable='true'
 								onDragEnd={this.handleDragEnd(shape)}
-								onClick={this.handleAttachTransform}
+								onClick={this.handleAttachTransform(shape)}
 								onDblClick={this.handleShapeDelete(shape)}
 							/>
 						</Layer>
@@ -113,11 +150,13 @@ class Mime extends Component {
 								y={parseInt(shape.y, 10)}
 								width={parseInt(shape.width, 10) + 0.01}
 								height={parseInt(shape.height, 10) + 0.01}
+								scaleX='1'
+								scaleY='1'
 								stroke='red'
 								strokeWidth='4'
 								draggable='true'
 								onDragEnd={this.handleDragEnd(shape)}
-								onClick={this.handleAttachTransform}
+								onClick={this.handleAttachTransform(shape)}
 								onDblClick={this.handleShapeDelete(shape)}
 							/>
 						</Layer>
@@ -174,6 +213,7 @@ class Mime extends Component {
 					</Layer>
 					{/* All wireframe shapes need their own layer */}
 					{this.renderShapes()}
+
 				</Stage>
 			</section>
 		)
@@ -185,7 +225,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-	updateShapePosition,
+	updateShape,
 	loadMimeThunk,
 	saveMimeThunk,
 	deleteShape
