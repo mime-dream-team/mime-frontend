@@ -6,8 +6,7 @@ const LOAD_MIME = 'LOAD_MIME'
 const SAVE_MIME = 'SAVE_MIME'
 const ADD_NEW_SHAPE = 'ADD_NEW_SHAPE'
 const DELETE_SHAPE = 'DELETE_SHAPE'
-const UPDATE_SHAPE_POSITION = 'UPDATE_SHAPE_POSITION'
-const CHANGE_SHAPE_SIZE = 'CHANGE_SHAPE_SIZE'
+const UPDATE_SHAPE = 'UPDATE_SHAPE'
 
 // Action creators
 export const createMime = mime => {
@@ -30,8 +29,8 @@ export const deleteShape = (deletedShape) => {
 	return { type: DELETE_SHAPE, deletedShape }
 }
 
-export const updateShapePosition = (updatedShape) => {
-	return { type: UPDATE_SHAPE_POSITION, updatedShape }
+export const updateShape = (updatedShape) => {
+	return { type: UPDATE_SHAPE, updatedShape }
 }
 
 // Thunks
@@ -81,7 +80,7 @@ const reducer = (state = initialState, action) => {
 				...state.shapes.filter((shape) => shape.id !== action.deletedShape.id)
 			]
 		})
-	case UPDATE_SHAPE_POSITION:
+	case UPDATE_SHAPE:
 		// filter out any shapes that don't have the updated shape's id, then add the updated shape to the array
 		return Object.assign({}, state, {
 			shapes: [
