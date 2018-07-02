@@ -2,6 +2,7 @@ const getPrediction = require('./../model')
 const processTrainingData = require('./../utils/dataTransforms/processTrainingData')
 const shapeCreator = require('./../utils/shapeCreator')
 const { Mime } = require('../db')
+const indexOfMax = require('./../utils/indexOfMax')
 
 module.exports = io => {
 	io.on('connection', socket => {
@@ -11,8 +12,10 @@ module.exports = io => {
 			let processedStroke = processTrainingData([ { stroke: [ strokePool ], type: 'unknown' } ]).shapeTrainingDataPoints[0]
 			getPrediction(processedStroke)
 				.then(shape => {
-					const [ circle, square ] = shape
-					const shapeData = shapeCreator(strokePool, circle > square ? 'circle' : 'square')
+					const shapeName = [ 'circle', 'square', 'triangle' ]
+					const predictedShapeName = shapeName[indexOfMax(shape)]
+					const shapeData = shapeCreator(strokePool, predictedShapeName)
+
 					// Save the new shape in the database before sending back to the client
 					Mime.findWithShapes(urlId)
 						.then(mime => mime.createShape(shapeData))
