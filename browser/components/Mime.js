@@ -172,7 +172,7 @@ class Mime extends Component {
 							urlId={this.props.urlId}
 						/>
 					</Layer>
-					{/* All wireframe shapes need their own layer and their own Transform */}
+					{/* All wireframe shapes need their own layer */}
 					{this.renderShapes()}
 				</Stage>
 			</section>
