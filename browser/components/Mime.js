@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Whiteboard from './Whiteboard'
 import { updateShape, loadMimeThunk, saveMimeThunk, deleteShape } from '../store/reducers/mimeReducer'
 import 'konva'
+import Share from './Share'
 
 class Mime extends Component {
 	constructor(props) {
@@ -202,6 +203,7 @@ class Mime extends Component {
 	render() {
 		return (
 			<section className={`mime ${this.state.windowWidthSmallerThanCanvas ? null : 'mime--center'}`}>
+				<Share path={this.props.match.path} />
 				<Stage
 					width={this.props.width || '768'}
 					height={this.props.height || '1024'}
