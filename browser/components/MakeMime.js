@@ -12,8 +12,7 @@ class MakeMime extends Component {
 			<div>
 				<div>
 					<h1>
-						Aquí le caen los usuarios al App. Un saludito al ingenuo usuario que
-						decidio usar este app. BAJAJAJA GOOGLE CANNOT HELP YOU NOW
+						Select a size to create your mime wireframe.
 					</h1>
 				</div>
 				<div>

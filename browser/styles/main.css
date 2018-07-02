@@ -3,7 +3,7 @@ body {
 	padding: 0
 }
 
-.mime {
+.konvajs-content {
 	-webkit-box-shadow: 0px 0px 14px 5px rgba(204,204,204,1);
 	-moz-box-shadow: 0px 0px 14px 5px rgba(204,204,204,1);
 	background-color: transparent;

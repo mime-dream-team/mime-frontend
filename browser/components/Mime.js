@@ -192,17 +192,16 @@ class Mime extends Component {
 		return (
 			<section>
 				<Stage
-					className='mime'
-					width={this.props.width}
-					height={this.props.height}
+					width={this.props.width || '768'}
+					height={this.props.height || '1024'}
 					ref={this.stage}
 					onClick={this.handleClickShapes}
 				>
 					<Layer>
 						<Whiteboard
 							className='mime__whiteboard'
-							width={this.props.width}
-							height={this.props.height}
+							width={this.props.width || '768'}
+							height={this.props.height || '1024'}
 							urlId={this.props.urlId}
 						/>
 					</Layer>
