@@ -12,8 +12,6 @@ import 'konva'
 
 // To do: The mime canvas will be a fixed pixel size, which will be received on props
 // These dimensions control the size of the canvas and Image component that forms the drawing surface
-const drawingHeight = 786
-const drawingWidth = 1024
 
 class Mime extends Component {
 	constructor(props) {
@@ -159,16 +157,16 @@ class Mime extends Component {
 			<section>
 				<Stage
 					className='mime'
-					width={drawingWidth}
-					height={drawingHeight}
+					width={this.props.width}
+					height={this.props.height}
 					ref={this.stage}
 					onClick={this.handleClickShapes}
 				>
 					<Layer>
 						<Whiteboard
 							className='mime__whiteboard'
-							width={drawingWidth}
-							height={drawingHeight}
+							width={this.props.width}
+							height={this.props.height}
 							urlId={this.props.urlId}
 						/>
 					</Layer>

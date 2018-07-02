@@ -35,12 +35,15 @@ export const updateShapePosition = (updatedShape) => {
 }
 
 // Thunks
-export const createMimeThunk = (mimeDimensions) => (dispatch) => {
+export const createMimeThunk = (mimeDimensions, history) => (dispatch) => {
 	const { height, width } = mimeDimensions
-	return axios
+	axios
 		.post('/mimes', { height, width })
 		.then((res) => res.data)
-		.then((mime) => dispatch(createMime(mime)))
+		.then((mime) => {
+			dispatch(createMime(mime))
+			history.push(`/mime/${mime.urlId}`)
+		})
 		.catch(console.error)
 }
 
@@ -64,19 +67,29 @@ export const saveMimeThunk = (state) => (dispatch) => {
 const initialState = {
 	id: 0,
 	urlId: '',
-	shapes: []
+	shapes: [],
+	height: '',
+	width: ''
 }
 
 // Reducer
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 	case CREATE_MIME:
-		return { id: action.mime.id, urlId: action.mime.urlId, shapes: [] }
+		return {
+			id: action.mime.id,
+			urlId: action.mime.urlId,
+			shapes: [],
+			height: action.mime.height,
+			width: action.mime.width
+		}
 	case LOAD_MIME:
 		return {
 			id: action.mime.id,
 			urlId: action.mime.urlId,
-			shapes: action.mime.shapes
+			shapes: action.mime.shapes,
+			height: action.mime.height,
+			width: action.mime.width
 		}
 	case SAVE_MIME:
 		return Object.assign({}, state, { shapes: action.mime.shapes })
