@@ -9,21 +9,36 @@ class MakeMime extends Component {
 	// [2560, 1440]
 	handleMimeCreate(height, width) {
 		const dimensionsObj = { height, width }
-		this.props.createMimeThunk(dimensionsObj)
+		this.props
+			.createMimeThunk(dimensionsObj)
+			.then((newMimeObj) =>
+				this.props.history.push(`/mime/${newMimeObj.urlId}`))
 		//we should get the urlId from this and push to history
 	}
 
 	render() {
-		return <h1>HOME</h1>
+		return (
+			<div>
+				<button type='button' onClick={() => this.handleMimeCreate(768, 1024)}>
+					768 x 1024
+				</button>
+				<button type='button' onClick={() => this.handleMimeCreate(1920, 1080)}>
+					1920 x 1080
+				</button>
+				<button type='button' onClick={() => this.handleMimeCreate(2560, 1440)}>
+					2560 x 1440
+				</button>
+			</div>
+		)
 	}
 }
 
 const mapStateToProps = (state) => {
-	return state
+
 }
 
-const mapDispatchToProps = {
-	createMimeThunk
+const mapDispatchToProps = () => {
+	return { createMimeThunk }
 }
 
 export default connect(

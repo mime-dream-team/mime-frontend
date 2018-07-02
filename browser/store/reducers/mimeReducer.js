@@ -37,7 +37,7 @@ export const updateShapePosition = (updatedShape) => {
 // Thunks
 export const createMimeThunk = (mimeDimensions) => (dispatch) => {
 	const { height, width } = mimeDimensions
-	axios
+	return axios
 		.post('/mimes', { height, width })
 		.then((res) => res.data)
 		.then((mime) => dispatch(createMime(mime)))
