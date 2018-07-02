@@ -24,7 +24,7 @@ class Mime extends Component {
 			this.props.loadMimeThunk(urlId)
 		} catch (error) {
 			console.log(error)
-			// TO DO: Create a 404 page and push to history if mime is not found
+			// To do: Create a 404 page and push to history if mime is not found
 		}
 	}
 
@@ -72,22 +72,17 @@ class Mime extends Component {
 			tr.attachTo(e.target)
 			layer.draw()
 
-			// rectangles are easy, because we can multiply the scales by the dimensions to get the new dimensions
-			// do we want to all a user to change the proportions of a circle??
-			// circles are tricky, because we need to multiply the scaleX/Y by radius to get new radius
-			// multiply height & width by scaleX and scaleY
-			// take any updated X and Y coordinates
+			// Attach event listener so when transform is completed, shape is updated on store
 			shape.on('transformend', (event) => {
 				let newProperties = this.handleShapeTransformData(shape)
 				this.handleShapeTransform(shapeFromState, newProperties)
-				console.log(shape.scaleX(), shape.scaleY())
 			})
 		}
 	}
 
 	handleShapeTransformData(shape){
 		// Return a different newProperties object depending on the shape type
-		// To do: add rotation support!
+		// To do: add rotation support to the state and db
 		const newProperties = { x: shape.x(), y: shape.y() }
 		switch (shape.className) {
 		case 'Circle':
@@ -95,6 +90,7 @@ class Mime extends Component {
 			newProperties.radius = shape.radius() * (shape.scaleX() > shape.scaleY() ? shape.scaleX() : shape.scaleY())
 			break
 		case 'Rect':
+			// Multiply the height and width by the scaled values
 			newProperties.width = shape.width() * shape.scaleX()
 			newProperties.height = shape.height() * shape.scaleY()
 			break
@@ -112,6 +108,7 @@ class Mime extends Component {
 	renderShapes() {
 		if (this.props.shapes.length) {
 			let mimeShapes = this.props.shapes.map((shape, index) => {
+				// Handle any edge cases where radius is negative
 				if (shape.radius < 0) shape.radius *= -1
 				switch (shape.type) {
 				case 'circle': {
@@ -205,7 +202,7 @@ class Mime extends Component {
 							urlId={this.props.urlId}
 						/>
 					</Layer>
-					{/* All wireframe shapes need their own layer */}
+					{/* All wireframe shapes are placed here with their own layers */}
 					{this.renderShapes()}
 
 				</Stage>
