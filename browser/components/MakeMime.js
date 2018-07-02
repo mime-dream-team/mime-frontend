@@ -13,7 +13,7 @@ class MakeMime extends Component {
 				<div>
 					<h1>
 						Aquí le caen los usuarios al App. Un saludito al ingenuo usuario que
-						decidio usar este app. BAJAJAJA
+						decidio usar este app. BAJAJAJA GOOGLE CANNOT HELP YOU NOW
 					</h1>
 				</div>
 				<div>
