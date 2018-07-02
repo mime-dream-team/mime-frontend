@@ -12,9 +12,7 @@ const removeSimilarDataPoints = (xYs) => {
   let standX = standardDeviation(xS)
   let standY = standardDeviation(yS)
   let previous = xYs[0]
-  // console.log(previous)
   let further = xYs.filter(coords => {
-    // console.log(coords[1][0] - previous[1][0], coords[1][1] - previous[1][1])
     if (Math.abs(coords[1][0] - previous[1][0]) > standX) {
       previous = coords
       return false

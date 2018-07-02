@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Stage, Layer, Image, Circle } from 'react-konva'
+import { Image } from 'react-konva'
 import socket from '../socket'
 
 class Whiteboard extends Component {
@@ -28,14 +28,12 @@ class Whiteboard extends Component {
 	}
 
 	handleMouseDown = () => {
-		console.log('mousedown')
 		this.setState({ isDrawing: true })
 		const stage = this.image.current.parent.parent
 		this.lastPointerPosition = stage.getPointerPosition()
 	}
 
 	handleMouseUp = () => {
-		console.log('mouseup')
 		// If there's stroke data after mouse release, emit a draw event to the server
 		if (this.state.strokePool.length) {
 			socket.emit('draw', this.state.strokePool, this.props.urlId)

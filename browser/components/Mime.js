@@ -1,15 +1,9 @@
 import React, { Component } from 'react'
-import { Stage, Layer, Circle, Line, Rect, RegularPolygon } from 'react-konva'
-import socket from '../socket'
+import { Stage, Layer, Circle, Rect, RegularPolygon } from 'react-konva'
 import { connect } from 'react-redux'
 import Whiteboard from './Whiteboard'
 import { updateShape, loadMimeThunk, saveMimeThunk, deleteShape } from '../store/reducers/mimeReducer'
 import 'konva'
-
-// To do: The mime canvas will be a fixed pixel size, which will be received on props
-// These dimensions control the size of the canvas and Image component that forms the drawing surface
-const drawingHeight = 786
-const drawingWidth = 1024
 
 class Mime extends Component {
 	constructor(props) {
@@ -24,7 +18,7 @@ class Mime extends Component {
 		this.handleShapeTransformData = this.handleShapeTransformData.bind(this)
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		const { urlId } = this.props.match.params
 		try {
 			this.props.loadMimeThunk(urlId)
@@ -34,20 +28,20 @@ class Mime extends Component {
 		}
 	}
 
-	componentWillUnmount(){
+	componentWillUnmount() {
 		const { id, urlId, shapes } = this.props
 		this.props.saveMimeThunk({ id, urlId, shapes })
 	}
 
-	handleClickShapes(e){
-		if (e.target.className === 'Image'){
+	handleClickShapes(e) {
+		if (e.target.className === 'Image') {
 			const transformers = this.stage.current._stage.find('Transformer')
-			if (transformers.length){
-				transformers.forEach(trans => {
+			if (transformers.length) {
+				transformers.forEach((trans) => {
 					const layer = trans.getLayer()
 					trans.destroy()
 					layer.draw()
-				});
+				})
 			}
 		}
 	}
@@ -198,21 +192,20 @@ class Mime extends Component {
 		return (
 			<section>
 				<Stage
-					className='mime'
-					width={drawingWidth}
-					height={drawingHeight}
+					width={this.props.width || '768'}
+					height={this.props.height || '1024'}
 					ref={this.stage}
 					onClick={this.handleClickShapes}
 				>
 					<Layer>
 						<Whiteboard
 							className='mime__whiteboard'
-							width={drawingWidth}
-							height={drawingHeight}
+							width={this.props.width || '768'}
+							height={this.props.height || '1024'}
 							urlId={this.props.urlId}
 						/>
 					</Layer>
-					{/* All wireframe shapes need their own layer and their own Transform */}
+					{/* All wireframe shapes need their own layer */}
 					{this.renderShapes()}
 
 				</Stage>
@@ -221,7 +214,7 @@ class Mime extends Component {
 	}
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
 	return state
 }
 
