@@ -9,19 +9,19 @@ const DELETE_SHAPE = 'DELETE_SHAPE'
 const UPDATE_SHAPE = 'UPDATE_SHAPE'
 
 // Action creators
-export const createMime = mime => {
+export const createMime = (mime) => {
 	return { type: CREATE_MIME, mime }
 }
 
-export const loadMime = mime => {
+export const loadMime = (mime) => {
 	return { type: LOAD_MIME, mime }
 }
 
-export const saveMime = mime => {
+export const saveMime = (mime) => {
 	return { type: SAVE_MIME, mime }
 }
 
-export const addNewShape = interpretedShape => {
+export const addNewShape = (interpretedShape) => {
 	return { type: ADD_NEW_SHAPE, interpretedShape }
 }
 
@@ -34,45 +34,68 @@ export const updateShape = (updatedShape) => {
 }
 
 // Thunks
-export const createMimeThunk = () => dispatch => {
-	axios.post('/mimes')
-		.then(res => res.data)
-		.then(mime => dispatch(createMime(mime)))
+export const createMimeThunk = (mimeDimensions, history) => (dispatch) => {
+	const { height, width } = mimeDimensions
+	axios
+		.post('/mimes', { height, width })
+		.then((res) => res.data)
+		.then((mime) => {
+			dispatch(createMime(mime))
+			history.push(`/mime/${mime.urlId}`)
+		})
 		.catch(console.error)
 }
 
-export const loadMimeThunk = urlId => dispatch => {
-	axios.get(`/mimes/${urlId}`)
-		.then(res => res.data)
-		.then(mime => dispatch(loadMime(mime)))
+export const loadMimeThunk = (urlId) => (dispatch) => {
+	axios
+		.get(`/mimes/${urlId}`)
+		.then((res) => res.data)
+		.then((mime) => dispatch(loadMime(mime)))
 		.catch(console.error)
 }
 
 // This thunk expects to receive the entire state from the front-end
-export const saveMimeThunk = state => dispatch => {
+export const saveMimeThunk = (state) => (dispatch) => {
 	const { urlId, shapes } = state
-	axios.put(`/mimes/${urlId}/shapes`, { shapes })
-		.then(res => res.data)
-		.then(savedMime => dispatch(saveMime(savedMime)))
+	axios
+		.put(`/mimes/${urlId}/shapes`, { shapes })
+		.then((res) => res.data)
+		.then((savedMime) => dispatch(saveMime(savedMime)))
 }
 
 const initialState = {
 	id: 0,
 	urlId: '',
-	shapes: []
+	shapes: [],
+	height: '',
+	width: ''
 }
 
 // Reducer
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 	case CREATE_MIME:
-		return { id: action.mime.id, urlId: action.mime.urlId, shapes: [] }
+		return {
+			id: action.mime.id,
+			urlId: action.mime.urlId,
+			shapes: [],
+			height: action.mime.height,
+			width: action.mime.width
+		}
 	case LOAD_MIME:
-		return { id: action.mime.id, urlId: action.mime.urlId, shapes: action.mime.shapes }
+		return {
+			id: action.mime.id,
+			urlId: action.mime.urlId,
+			shapes: action.mime.shapes,
+			height: action.mime.height,
+			width: action.mime.width
+		}
 	case SAVE_MIME:
 		return Object.assign({}, state, { shapes: action.mime.shapes })
 	case ADD_NEW_SHAPE:
-		return Object.assign({}, state, { shapes: [ ...state.shapes, action.interpretedShape ] })
+		return Object.assign({}, state, {
+			shapes: [ ...state.shapes, action.interpretedShape ]
+		})
 	case DELETE_SHAPE:
 		// filter out shapes that don't have the deleted shape id
 		return Object.assign({}, state, {
@@ -84,7 +107,9 @@ const reducer = (state = initialState, action) => {
 		// filter out any shapes that don't have the updated shape's id, then add the updated shape to the array
 		return Object.assign({}, state, {
 			shapes: [
-				...state.shapes.filter((shape) => shape.id !== action.updatedShape.id),
+				...state.shapes.filter(
+					(shape) => shape.id !== action.updatedShape.id
+				),
 				action.updatedShape
 			]
 		})

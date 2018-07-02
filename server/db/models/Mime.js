@@ -10,6 +10,20 @@ const Mime = db.define('mime', {
 		validate: {
 			notEmpty: true
 		}
+	},
+	height: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+		validate: {
+			notEmpty: true
+		}
+	},
+	width: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+		validate: {
+			notEmpty: true
+		}
 	}
 })
 

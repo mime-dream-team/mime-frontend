@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Stage, Layer, Image, Circle } from 'react-konva'
+import { Image } from 'react-konva'
 import socket from '../socket'
 
 class Whiteboard extends Component {

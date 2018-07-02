@@ -8,8 +8,8 @@ import Root from './Root'
 import './styles/main.css'
 
 ReactDOM.render(
-	<Provider store = { store }>
-		<Router history={ history }>
+	<Provider store={store}>
+		<Router history={history}>
 			<Root />
 		</Router>
 	</Provider>,
