@@ -79,7 +79,7 @@ class Mime extends Component {
 	renderShapes() {
 		if (this.props.shapes.length) {
 			let mimeShapes = this.props.shapes.map((shape, index) => {
-				if(shape.radius < 0) shape.radius *= -1
+				if (shape.radius < 0) shape.radius *= -1
 				switch (shape.type) {
 				case 'circle': {
 					return (
@@ -122,12 +122,14 @@ class Mime extends Component {
 				}
 				case 'triangle': {
 					return (
-						<Layer>
+						<Layer key={shape.uniqueId}>
 							<RegularPolygon
-								x={shape.x}
-								y={shape.y}
+								key={shape.uniqueId}
+								name={'shape' + index}
+								x={parseInt(shape.x, 10)}
+								y={parseInt(shape.y, 10)}
 								sides={3}
-								radius={shape.radius + 0.01}
+								radius={parseInt(shape.radius, 10) + 0.01}
 								stroke='green'
 								strokeWidth={4}
 								draggable='true'
