@@ -3,8 +3,7 @@ import { Stage, Layer, Circle, Line, Rect, RegularPolygon } from 'react-konva'
 import socket from '../socket'
 import { connect } from 'react-redux'
 import Whiteboard from './Whiteboard'
-import Transform from './Transform'
-import { updateShapePosition, loadMimeThunk, saveMimeThunk, deleteShape } from '../store/reducers/mimeReducer'
+import { updateShape, loadMimeThunk, saveMimeThunk, deleteShape } from '../store/reducers/mimeReducer'
 import 'konva'
 
 // To do: The mime canvas will be a fixed pixel size, which will be received on props
@@ -21,6 +20,7 @@ class Mime extends Component {
 		this.handleClickShapes = this.handleClickShapes.bind(this)
 		this.handleAttachTransform = this.handleAttachTransform.bind(this)
 		this.handleShapeDelete = this.handleShapeDelete.bind(this)
+		this.handleShapeTransform = this.handleShapeTransform.bind(this)
 	}
 
 	componentDidMount(){
@@ -57,7 +57,7 @@ class Mime extends Component {
 			let updatedShape = Object.assign({}, shape)
 			updatedShape.x = e.target.x()
 			updatedShape.y = e.target.y()
-			this.props.updateShapePosition(updatedShape)
+			this.props.updateShape(updatedShape)
 		}
 	}
 
@@ -69,11 +69,31 @@ class Mime extends Component {
 
 	handleAttachTransform(e) {
 		const shape = e.target
-		const tr = new Konva.Transformer()
+		const transformerSettings = { rotationSnaps: [ 0, 90, 180, 270, 360 ] }
+		const tr = new Konva.Transformer(transformerSettings)
 		const layer = shape.getLayer()
 		layer.add(tr)
 		tr.attachTo(e.target)
 		layer.draw()
+
+		shape.on('transformstart', function () {
+			console.log('transform start')
+		})
+
+		shape.on('transform', function () {
+			console.log('transform')
+		})
+
+		// rectangles are easy, because we can multiply the scales by the dimensions to get the new dimensions
+		// do we want to all a user to change the proportions of a circle??
+		// circles are tricky, because we need to multiply the scaleX/Y by radius to get new radius
+		// multiply height & width by scaleX and scaleY
+		// take any updated X and Y coordinates
+		shape.on('transformend', (event) => console.log('transform end', shape.x(), shape.y(), shape))
+	}
+
+	handleShapeTransform(){
+		
 	}
 
 	renderShapes() {
@@ -88,7 +108,7 @@ class Mime extends Component {
 								key={shape.uniqueId}
 								x={parseInt(shape.x, 10)}
 								y={parseInt(shape.y, 10)}
-								radius={parseInt(shape.radius, 10) + .01}
+								radius={parseInt(shape.radius, 10) + 0.01}
 								stroke='blue'
 								strokeWidth='4'
 								draggable='true'
@@ -107,8 +127,8 @@ class Mime extends Component {
 								key={shape.uniqueId}
 								x={parseInt(shape.x, 10)}
 								y={parseInt(shape.y, 10)}
-								width={parseInt(shape.width, 10) + .01}
-								height={parseInt(shape.height, 10) + .01}
+								width={parseInt(shape.width, 10) + 0.01}
+								height={parseInt(shape.height, 10) + 0.01}
 								stroke='red'
 								strokeWidth='4'
 								draggable='true'
@@ -150,6 +170,7 @@ class Mime extends Component {
 					</Layer>
 					{/* All wireframe shapes need their own layer and their own Transform */}
 					{this.renderShapes()}
+
 				</Stage>
 			</section>
 		)
@@ -161,7 +182,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-	updateShapePosition,
+	updateShape,
 	loadMimeThunk,
 	saveMimeThunk,
 	deleteShape
