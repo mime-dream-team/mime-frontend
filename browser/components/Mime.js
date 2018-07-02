@@ -10,9 +10,6 @@ import {
 } from '../store/reducers/mimeReducer'
 import 'konva'
 
-// To do: The mime canvas will be a fixed pixel size, which will be received on props
-// These dimensions control the size of the canvas and Image component that forms the drawing surface
-
 class Mime extends Component {
 	constructor(props) {
 		super(props)

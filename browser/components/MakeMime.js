@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { connect, withRouter } from 'react-redux'
+import { connect } from 'react-redux'
 import { createMimeThunk } from '../store/reducers/mimeReducer'
 
 class MakeMime extends Component {
@@ -10,15 +10,32 @@ class MakeMime extends Component {
 	render() {
 		return (
 			<div>
-				<button type='button' onClick={() => this.handleMimeCreate(768, 1024)}>
-					768 x 1024
-				</button>
-				<button type='button' onClick={() => this.handleMimeCreate(1920, 1080)}>
-					1920 x 1080
-				</button>
-				<button type='button' onClick={() => this.handleMimeCreate(2560, 1440)}>
-					2560 x 1440
-				</button>
+				<div>
+					<h1>
+						Aquí le caen los usuarios al App. Un saludito al ingenuo usuario que
+						decidio usar este app. BAJAJAJA
+					</h1>
+				</div>
+				<div>
+					<button
+						type='button'
+						onClick={() => this.handleMimeCreate(768, 1024)}
+					>
+						768 x 1024
+					</button>
+					<button
+						type='button'
+						onClick={() => this.handleMimeCreate(1920, 1080)}
+					>
+						1920 x 1080
+					</button>
+					<button
+						type='button'
+						onClick={() => this.handleMimeCreate(2560, 1440)}
+					>
+						2560 x 1440
+					</button>
+				</div>
 			</div>
 		)
 	}
