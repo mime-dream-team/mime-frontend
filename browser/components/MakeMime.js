@@ -6,21 +6,36 @@ class MakeMime extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			height: 0,
-			width: 0
+			height: '',
+			width: ''
 		}
 		this.handleMimeCreate = this.handleMimeCreate.bind(this)
+		this.handleChange = this.handleChange.bind(this)
 	}
-	handleMimeCreate(height, width) {
-		const dimensionsObj = { height, width }
-		this.props.createMimeThunk(dimensionsObj, this.props.history)
+	handleMimeCreate() {
+		const height = this.state.height
+		const width = this.state.width
+		if (height > 0 && width > 0) {
+			let dimensionsObj = {
+				height: Number(height),
+				width: Number(width)
+			}
+			this.props.createMimeThunk(dimensionsObj, this.props.history)
+		}
 	}
+	handleChange(e) {
+		let name = e.target.name
+		let value = e.target.value
+		this.setState({ [name]: value })
+	}
+
 	render() {
+		console.log(this.state.height, this.state.width)
 		return (
 			<div>
-				<input name={height} />
-				<input name={width} />
-				<button />
+				<input name="width" onChange={this.handleChange} />
+				<input name="height" onChange={this.handleChange} />
+				<button onClick={this.handleMimeCreate} />
 			</div>
 		)
 	}
