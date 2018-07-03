@@ -1,12 +1,50 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700');
+
+/* colors
+cyan: rgb(0, 217, 217)
+yellow: rgb(217, 217, 0)
+magenta: rgb(217, 0, 217)
+white:
+ */
+
 body {
+	background-color: #f9f9f9;
+	color: #333333;
+	font-family: 'Inconsolata', monospace;
 	margin: 0;
-	padding: 0
+	padding: 0;
 }
+
+/* Container styles */
+.container-fluid {
+	padding: 0;
+}
+
+/* Paragraph and heading styles */
+
+.home__header {
+	margin-top: 60px;
+}
+
+.home__nameplate {
+	font-size: 6rem;
+}
+
+.home__intro {
+	font-size: 1.75rem;
+}
+
+.underline {
+	text-decoration: underline;
+}
+
+/* Nav styles */
+
+/* Button styles */
 
 /* Mime section container */
 .mime {
 	align-items: center;
-	background-color: #e9e8e8;
 	display: flex;
 	padding: 30px;
 	overflow: scroll;
