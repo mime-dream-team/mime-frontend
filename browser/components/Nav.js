@@ -15,9 +15,7 @@ const Navigation = (props) => {
 }
 
 const mapStateToProps = (state) => {
-	return state.lastSave
+	return { lastSave: state.lastSave }
 }
 
-export default connect(
-	mapStateToProps
-)(Navigation)
+export default connect(mapStateToProps)(Navigation)
