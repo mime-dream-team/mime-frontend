@@ -9,6 +9,7 @@ const Navigation = (props) => {
 		<Navbar fixed='true'>
 			<NavbarBrand href='/'>MIME</NavbarBrand>
 			<Share path={props.match.path} />
+			<h1>{props.lastSave}</h1>
 		</Navbar>
 	)
 }
