@@ -19,6 +19,7 @@ const Shape = db.define('shape', {
 	},
 	x: Sequelize.DECIMAL, // All shapes
 	y: Sequelize.DECIMAL, // All shapes
+	rotation: Sequelize.DECIMAL, //All shapes
 	x2: Sequelize.DECIMAL, // Lines
 	y2: Sequelize.DECIMAL, // Lines
 	radius: Sequelize.DECIMAL, // Circles and Triangles
