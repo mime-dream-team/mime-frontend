@@ -63,12 +63,14 @@ class Mime extends Component {
 			updatedShape.x = e.target.x()
 			updatedShape.y = e.target.y()
 			this.props.updateShape(updatedShape)
+			this.props.saveMimeThunk(this.props)
 		}
 	}
 
 	handleShapeDelete(shape) {
 		return (e) => {
 			this.props.deleteShape(shape)
+			this.props.saveMimeThunk(this.props)
 		}
 	}
 
@@ -93,7 +95,7 @@ class Mime extends Component {
 	handleShapeTransformData(shape){
 		// Return a different newProperties object depending on the shape type
 		// To do: add rotation support to the state and db
-		const newProperties = { x: shape.x(), y: shape.y() }
+		const newProperties = { x: shape.x(), y: shape.y(), rotation: shape.rotation() }
 		switch (shape.className) {
 		case 'Circle':
 			// Multiply the radius by the largest scaled value
@@ -113,6 +115,7 @@ class Mime extends Component {
 	handleShapeTransform(shapeFromState, newProperties){
 		const updatedShape = Object.assign({}, shapeFromState, newProperties)
 		this.props.updateShape(updatedShape)
+		this.props.saveMimeThunk(this.props)
 	}
 
 	renderShapes() {
@@ -129,6 +132,7 @@ class Mime extends Component {
 								key={shape.uniqueId}
 								x={parseInt(shape.x, 10)}
 								y={parseInt(shape.y, 10)}
+								rotation={shape.rotation}
 								radius={parseInt(shape.radius, 10) + 0.01}
 								scaleX='1'
 								scaleY='1'
@@ -150,6 +154,7 @@ class Mime extends Component {
 								key={shape.uniqueId}
 								x={parseInt(shape.x, 10)}
 								y={parseInt(shape.y, 10)}
+								rotation={shape.rotation}
 								width={parseInt(shape.width, 10) + 0.01}
 								height={parseInt(shape.height, 10) + 0.01}
 								scaleX='1'
@@ -172,6 +177,7 @@ class Mime extends Component {
 								name={'shape' + index}
 								x={parseInt(shape.x, 10)}
 								y={parseInt(shape.y, 10)}
+								rotation={shape.rotation}
 								sides={3}
 								radius={parseInt(shape.radius, 10) + 0.01}
 								stroke='green'
@@ -204,6 +210,7 @@ class Mime extends Component {
 		return (
 			<section className={`mime ${this.state.windowWidthSmallerThanCanvas ? null : 'mime--center'}`}>
 				<Share path={this.props.match.path} />
+				<h1>{this.props.lastSave}</h1>
 				<Stage
 					width={this.props.width || '768'}
 					height={this.props.height || '1024'}
