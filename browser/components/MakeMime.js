@@ -3,38 +3,39 @@ import { connect } from 'react-redux'
 import { createMimeThunk } from '../store/reducers/mimeReducer'
 
 class MakeMime extends Component {
-	handleMimeCreate(height, width) {
-		const dimensionsObj = { height, width }
-		this.props.createMimeThunk(dimensionsObj, this.props.history)
+	constructor(props) {
+		super(props)
+		this.state = {
+			height: '',
+			width: ''
+		}
+		this.handleMimeCreate = this.handleMimeCreate.bind(this)
+		this.handleChange = this.handleChange.bind(this)
 	}
+	handleMimeCreate() {
+		const height = this.state.height
+		const width = this.state.width
+		if (height > 0 && width > 0) {
+			let dimensionsObj = {
+				height: Number(height),
+				width: Number(width)
+			}
+			this.props.createMimeThunk(dimensionsObj, this.props.history)
+		}
+	}
+	handleChange(e) {
+		let name = e.target.name
+		let value = e.target.value
+		this.setState({ [name]: value })
+	}
+
 	render() {
+		console.log(this.state.height, this.state.width)
 		return (
 			<div>
-				<div>
-					<h1>
-						Select a size to create your mime wireframe.
-					</h1>
-				</div>
-				<div>
-					<button
-						type='button'
-						onClick={() => this.handleMimeCreate(768, 1024)}
-					>
-						768 x 1024
-					</button>
-					<button
-						type='button'
-						onClick={() => this.handleMimeCreate(1920, 1080)}
-					>
-						1920 x 1080
-					</button>
-					<button
-						type='button'
-						onClick={() => this.handleMimeCreate(2560, 1440)}
-					>
-						2560 x 1440
-					</button>
-				</div>
+				<input name="width" onChange={this.handleChange} />
+				<input name="height" onChange={this.handleChange} />
+				<button onClick={this.handleMimeCreate} />
 			</div>
 		)
 	}
