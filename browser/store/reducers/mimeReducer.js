@@ -17,8 +17,8 @@ export const loadMime = (mime) => {
 	return { type: LOAD_MIME, mime }
 }
 
-export const saveMime = (mime) => {
-	return { type: SAVE_MIME, mime }
+export const saveMime = (time) => {
+	return { type: SAVE_MIME, time }
 }
 
 export const addNewShape = (interpretedShape) => {
@@ -60,7 +60,10 @@ export const saveMimeThunk = (state) => (dispatch) => {
 	axios
 		.put(`/mimes/${urlId}/shapes`, { shapes })
 		.then((res) => res.data)
-		.then((savedMime) => dispatch(saveMime(savedMime)))
+		.then(() => {
+			let time = new Date(new Date().getTime()).toTimeString().slice(0,8)
+			dispatch(saveMime(time))
+		})
 }
 
 const initialState = {
@@ -68,7 +71,8 @@ const initialState = {
 	urlId: '',
 	shapes: [],
 	height: '',
-	width: ''
+	width: '',
+	lastSave: ''
 }
 
 // Reducer
@@ -91,7 +95,7 @@ const reducer = (state = initialState, action) => {
 			width: action.mime.width
 		}
 	case SAVE_MIME:
-		return Object.assign({}, state, { shapes: action.mime.shapes })
+		return Object.assign({}, state, { lastSave: action.time })
 	case ADD_NEW_SHAPE:
 		return Object.assign({}, state, {
 			shapes: [ ...state.shapes, action.interpretedShape ]
