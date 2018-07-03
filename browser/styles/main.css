@@ -3,19 +3,29 @@ body {
 	padding: 0
 }
 
+/* Mime section container */
+.mime {
+	align-items: center;
+	background-color: #e9e8e8;
+	display: flex;
+	padding: 30px;
+	overflow: scroll;
+}
+
+.mime--center {
+	justify-content: safe center;
+}
+
+/* Style for the MIME component  */
 .konvajs-content {
 	-webkit-box-shadow: 0px 0px 14px 5px rgba(204,204,204,1);
 	-moz-box-shadow: 0px 0px 14px 5px rgba(204,204,204,1);
-	background-color: transparent;
+	align-self: flex-start;
+	background-color: rgba(255, 255, 255, 0.95);
   background-image:linear-gradient(0deg, transparent 24%, rgba(0, 0, 0, .05) 25%, rgba(0, 0, 0, .05) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .05) 75%, rgba(0, 0, 0, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(0, 0, 0, .05) 25%, rgba(0, 0, 0, .05) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .05) 75%, rgba(0, 0, 0, .05) 76%, transparent 77%, transparent);
-	height:100%;
+	height: 100%;
 	background-position: left top;
   background-size: 50px 50px;
-	box-shadow: 0px 0px 14px 5px rgba(204,204,204,1);
-	margin: 1em;
-	position: absolute;
-}
-
-.mime__whiteboard {
+	box-shadow: 0px 0px 14px 5px rgb(0, 0, 0, 0.3);
 	margin: 1em;
 }

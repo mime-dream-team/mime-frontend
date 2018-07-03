@@ -9,8 +9,11 @@ import Share from './Share'
 class Mime extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {}
+		this.state = {
+			windowWidthSmallerThanCanvas: false
+		}
 		this.stage = React.createRef()
+		this.checkWindowSize = this.checkWindowSize.bind(this)
 		this.renderShapes = this.renderShapes.bind(this)
 		this.handleClickShapes = this.handleClickShapes.bind(this)
 		this.handleAttachTransform = this.handleAttachTransform.bind(this)
@@ -20,6 +23,11 @@ class Mime extends Component {
 	}
 
 	componentDidMount() {
+		// Watching the window's size, so the canvas can be displayed properly when the window gets too small
+		window.addEventListener('resize', this.checkWindowSize)
+		this.checkWindowSize()
+
+		// Load the mime
 		const { urlId } = this.props.match.params
 		try {
 			this.props.loadMimeThunk(urlId)
@@ -30,6 +38,7 @@ class Mime extends Component {
 	}
 
 	componentWillUnmount() {
+		window.removeEventListener('resize', this.checkWindowSize)
 		const { id, urlId, shapes } = this.props
 		this.props.saveMimeThunk({ id, urlId, shapes })
 	}
@@ -186,10 +195,15 @@ class Mime extends Component {
 		}
 	}
 
+	checkWindowSize(){
+		if (window.innerWidth < this.props.width + 60) this.setState({ windowWidthSmallerThanCanvas: true })
+		else this.setState({ windowWidthSmallerThanCanvas: false })
+	}
+
 	render() {
 		return (
-			<section>
-				<Share path={this.props.match.path}/>
+			<section className={`mime ${this.state.windowWidthSmallerThanCanvas ? null : 'mime--center'}`}>
+				<Share path={this.props.match.path} />
 				<Stage
 					width={this.props.width || '768'}
 					height={this.props.height || '1024'}
