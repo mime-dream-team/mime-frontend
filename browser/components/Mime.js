@@ -132,8 +132,8 @@ class Mime extends Component {
 								radius={parseInt(shape.radius, 10) + 0.01}
 								scaleX='1'
 								scaleY='1'
-								stroke='blue'
-								strokeWidth='4'
+								stroke='black'
+								strokeWidth='2'
 								draggable='true'
 								onDragEnd={this.handleDragEnd(shape)}
 								onClick={this.handleAttachTransform(shape)}
@@ -154,8 +154,8 @@ class Mime extends Component {
 								height={parseInt(shape.height, 10) + 0.01}
 								scaleX='1'
 								scaleY='1'
-								stroke='red'
-								strokeWidth='4'
+								stroke='black'
+								strokeWidth='2'
 								draggable='true'
 								onDragEnd={this.handleDragEnd(shape)}
 								onClick={this.handleAttachTransform(shape)}
@@ -174,8 +174,8 @@ class Mime extends Component {
 								y={parseInt(shape.y, 10)}
 								sides={3}
 								radius={parseInt(shape.radius, 10) + 0.01}
-								stroke='green'
-								strokeWidth={4}
+								stroke='black'
+								strokeWidth='2'
 								draggable='true'
 								onDragEnd={this.handleDragEnd(shape)}
 								onClick={this.handleAttachTransform}
@@ -203,7 +203,6 @@ class Mime extends Component {
 	render() {
 		return (
 			<section className={`mime ${this.state.windowWidthSmallerThanCanvas ? null : 'mime--center'}`}>
-				<Share path={this.props.match.path} />
 				<Stage
 					width={this.props.width || '768'}
 					height={this.props.height || '1024'}
@@ -220,7 +219,6 @@ class Mime extends Component {
 					</Layer>
 					{/* All wireframe shapes are placed here with their own layers */}
 					{this.renderShapes()}
-
 				</Stage>
 			</section>
 		)
