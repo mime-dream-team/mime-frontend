@@ -12,7 +12,8 @@ class MakeMime extends Component {
 		this.handleMimeCreate = this.handleMimeCreate.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 	}
-	handleMimeCreate() {
+	handleMimeCreate(e) {
+		e.preventDefault()
 		const height = this.state.height
 		const width = this.state.width
 		if (height > 0 && width > 0) {
@@ -31,11 +32,17 @@ class MakeMime extends Component {
 
 	render() {
 		return (
-			<div>
-				<input name='width' onChange={this.handleChange} />
-				<input name='height' onChange={this.handleChange} />
-				<button type='button' onClick={this.handleMimeCreate} />
-			</div>
+			<form onSubmit={this.handleMimeCreate} className='mime-form'>
+				<div className='mime-form__wrapper'>
+					<label className='mime-form__label' htmlFor='width'>Width (px)</label>
+					<input className='mime-form__input' name='width' onChange={this.handleChange} type='number' placeholder='1080' />
+				</div>
+				<div className='mime-form__wrapper'>
+					<label className='mime-form__label' htmlFor='height'>Height (px)</label>
+					<input className='mime-form__input' name='height' onChange={this.handleChange} type='number' placeholder='720' />
+				</div>
+				<button className='button' type='submit'>Make a Mime</button>
+			</form>
 		)
 	}
 }

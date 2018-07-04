@@ -38,9 +38,48 @@ body {
 	text-decoration: underline;
 }
 
+.mime-form {
+	align-items: flex-end;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: 30px 0 60px 0;
+}
+
+.mime-form__wrapper {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	margin: 0 15px 0 0;
+}
+
+.mime-form__input, .mime-form__label {
+	font-size: 1.50rem;
+}
+
+.mime-form__input {
+	padding: 7px;
+}
+
 /* Nav styles */
 
 /* Button styles */
+
+.button {
+	background-color: rgb(0, 217, 217);
+	border: none;
+	border-radius: 10px;
+	font-size: 1.50rem;
+	padding: 12px 20px;
+	margin: 30px 15px 0 15px;
+	transition: all 0.3s ease;
+}
+
+.button:hover {
+	box-shadow: 8px 8px 0 0 rgb(217, 0, 217), 16px 16px 0 0 rgb(217, 217, 0);
+	cursor: pointer;
+}
 
 /* Mime section container */
 .mime {
