@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Stage, Layer, Image, Circle } from 'react-konva'
+import { Image } from 'react-konva'
 import socket from '../socket'
 
 class Whiteboard extends Component {
@@ -28,17 +28,18 @@ class Whiteboard extends Component {
 	}
 
 	handleMouseDown = () => {
-		console.log('mousedown')
 		this.setState({ isDrawing: true })
 		const stage = this.image.current.parent.parent
 		this.lastPointerPosition = stage.getPointerPosition()
 	}
 
 	handleMouseUp = () => {
-		console.log('mouseup')
 		// If there's stroke data after mouse release, emit a draw event to the server
 		if (this.state.strokePool.length) {
-			socket.emit('draw', this.state.strokePool, window.location.hash)
+			// socket.emit('draw', this.state.strokePool, window.location.hash)
+			// that was how we used to do it before redux
+			socket.emit('draw', this.state.strokePool, this.props.urlId)
+			this.createCanvas()
 		}
 		this.setState({ isDrawing: false, strokePool: [] })
 	}
@@ -56,7 +57,7 @@ class Whiteboard extends Component {
 				x: this.lastPointerPosition.x - this.image.current.x(),
 				y: this.lastPointerPosition.y - this.image.current.y()
 			}
-			sample.push([ localPos.x, localPos.y ])
+			sample.push([localPos.x, localPos.y])
 			context.moveTo(localPos.x, localPos.y)
 			const stage = this.image.current.parent.parent
 			let pos = stage.getPointerPosition()
@@ -65,8 +66,8 @@ class Whiteboard extends Component {
 				y: pos.y - this.image.current.y()
 			}
 			context.lineTo(localPos.x, localPos.y)
-			sample.push([ localPos.x, localPos.y ])
-			this.setState({ strokePool: [ ...this.state.strokePool, ...sample ] })
+			sample.push([localPos.x, localPos.y])
+			this.setState({ strokePool: [...this.state.strokePool, ...sample] })
 			context.closePath()
 			context.stroke()
 			this.lastPointerPosition = pos
