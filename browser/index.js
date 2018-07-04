@@ -5,6 +5,7 @@ import { Router } from 'react-router-dom'
 import history from './routes/history'
 import store from './store/store'
 import Root from './Root'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/main.css'
 
 ReactDOM.render(

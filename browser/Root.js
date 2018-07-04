@@ -3,9 +3,7 @@ import Routes from './routes/Routes'
 
 const Root = () => {
 	return (
-		<section>
-			<Routes />
-		</section>
+		<Routes />
 	)
 }
 
