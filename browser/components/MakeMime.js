@@ -30,12 +30,11 @@ class MakeMime extends Component {
 	}
 
 	render() {
-		console.log(this.state.height, this.state.width)
 		return (
 			<div>
-				<input name="width" onChange={this.handleChange} />
-				<input name="height" onChange={this.handleChange} />
-				<button onClick={this.handleMimeCreate} />
+				<input name='width' onChange={this.handleChange} />
+				<input name='height' onChange={this.handleChange} />
+				<button type='button' onClick={this.handleMimeCreate} />
 			</div>
 		)
 	}

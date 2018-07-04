@@ -6,7 +6,7 @@ const Home = (props) => {
 	return (
 		<Container fluid={true}>
 			<Row>
-				<Col xs={{ size: '12' }} sm={{ size: '6', offset: '3' }}>
+				<Col sm={{ size: '10', offset: '1' }} md={{ size: '6', offset: '3' }}>
 					<header className='home__header'>
 						<h1 className='home__nameplate'>MIME</h1>
 					</header>
