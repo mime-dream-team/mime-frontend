@@ -4,7 +4,6 @@
 cyan: rgb(0, 217, 217)
 yellow: rgb(217, 217, 0)
 magenta: rgb(217, 0, 217)
-white:
  */
 
 body {
@@ -16,6 +15,7 @@ body {
 }
 
 /* Container styles */
+
 .container-fluid {
 	padding: 0;
 }
@@ -51,7 +51,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
-	margin: 0 15px 0 0;
+	margin: 0 7px;
 }
 
 .mime-form__input, .mime-form__label {
@@ -62,7 +62,38 @@ body {
 	padding: 7px;
 }
 
+a {
+	color: rgb(217, 0, 217);
+	transition: all 0.3s ease;
+}
+
 /* Nav styles */
+
+.nav {
+	font-size: 1.3rem;
+}
+
+.nav__name {
+	text-transform: uppercase;
+}
+
+.nav__button {
+	background-color: transparent;
+	border: none;
+	color: rgb(217, 0, 217);
+	cursor: pointer;
+	margin: 0 7px;
+	transition: all 0.3s ease;
+}
+
+.nav__button:hover, .navbar-brand:hover {
+	color: rgb(0, 217, 217);
+}
+
+.nav__last-saved {
+	color: rgb(217, 0, 217);
+	margin-bottom: 0;
+}
 
 /* Button styles */
 
@@ -81,7 +112,12 @@ body {
 	cursor: pointer;
 }
 
-/* Mime section container */
+.button--extra-margin {
+	margin: 30px 50px 0 50px;
+}
+
+/* MIME section container styles */
+
 .mime {
 	align-items: center;
 	display: flex;
@@ -93,7 +129,8 @@ body {
 	justify-content: safe center;
 }
 
-/* Style for the MIME component  */
+/* MIME component styles */
+
 .konvajs-content {
 	-webkit-box-shadow: 0px 0px 14px 5px rgba(204,204,204,1);
 	-moz-box-shadow: 0px 0px 14px 5px rgba(204,204,204,1);

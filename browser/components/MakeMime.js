@@ -41,7 +41,7 @@ class MakeMime extends Component {
 					<label className='mime-form__label' htmlFor='height'>Height (px)</label>
 					<input className='mime-form__input' name='height' onChange={this.handleChange} type='number' placeholder='720' />
 				</div>
-				<button className='button' type='submit'>Make a Mime</button>
+				<button className='button button--extra-margin' type='submit'>Make a Mime</button>
 			</form>
 		)
 	}

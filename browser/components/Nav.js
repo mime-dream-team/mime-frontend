@@ -1,15 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap'
+import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap'
 import Share from './Share'
 
 const Navigation = (props) => {
 
 	return (
 		<Navbar fixed='true'>
-			<NavbarBrand href='/'>MIME</NavbarBrand>
+			<NavbarBrand href='/' className='nav__name'>Mime Wireframes</NavbarBrand>
 			<Share path={props.match.path} />
-			<h1>{props.lastSave}</h1>
+			{<p className='nav__last-saved'>Saved at: <time>{props.lastSave || '00:00:00'}</time></p>}
 		</Navbar>
 	)
 }
