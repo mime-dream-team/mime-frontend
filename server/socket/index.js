@@ -12,7 +12,7 @@ module.exports = io => {
 			let processedStroke = processTrainingData([ { stroke: [ strokePool ], type: 'unknown' } ]).shapeTrainingDataPoints[0]
 			getPrediction(processedStroke)
 				.then(shape => {
-					const shapeName = [ 'circle', 'square', 'triangle' ]
+					const shapeName = [ 'circle', 'square' ]
 					const predictedShapeName = shapeName[indexOfMax(shape)]
 					const shapeData = shapeCreator(strokePool, predictedShapeName)
 
