@@ -55,7 +55,7 @@ class Whiteboard extends Component {
 				x: this.lastPointerPosition.x - this.image.current.x(),
 				y: this.lastPointerPosition.y - this.image.current.y()
 			}
-			sample.push([ localPos.x, localPos.y ])
+			sample.push([localPos.x, localPos.y])
 			context.moveTo(localPos.x, localPos.y)
 			const stage = this.image.current.parent.parent
 			let pos = stage.getPointerPosition()
@@ -64,8 +64,8 @@ class Whiteboard extends Component {
 				y: pos.y - this.image.current.y()
 			}
 			context.lineTo(localPos.x, localPos.y)
-			sample.push([ localPos.x, localPos.y ])
-			this.setState({ strokePool: [ ...this.state.strokePool, ...sample ] })
+			sample.push([localPos.x, localPos.y])
+			this.setState({ strokePool: [...this.state.strokePool, ...sample] })
 			context.closePath()
 			context.stroke()
 			this.lastPointerPosition = pos
@@ -84,6 +84,9 @@ class Whiteboard extends Component {
 				onMouseDown={this.handleMouseDown}
 				onMouseUp={this.handleMouseUp}
 				onMouseMove={this.handleMouseMove}
+				onTouchStart={this.handleMouseDown}
+				onTouchEnd={this.handleMouseUp}
+				onTouchMove={this.handleMouseMove}
 			/>
 		)
 	}

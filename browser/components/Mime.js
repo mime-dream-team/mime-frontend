@@ -2,7 +2,12 @@ import React, { Component } from 'react'
 import { Stage, Layer, Circle, Rect, RegularPolygon } from 'react-konva'
 import { connect } from 'react-redux'
 import Whiteboard from './Whiteboard'
-import { updateShape, loadMimeThunk, saveMimeThunk, deleteShape } from '../store/reducers/mimeReducer'
+import {
+	updateShape,
+	loadMimeThunk,
+	saveMimeThunk,
+	deleteShape
+} from '../store/reducers/mimeReducer'
 import 'konva'
 import Share from './Share'
 
@@ -74,10 +79,10 @@ class Mime extends Component {
 		}
 	}
 
-	handleAttachTransform(shapeFromState){
+	handleAttachTransform(shapeFromState) {
 		return (e) => {
 			const shape = e.target
-			const transformerSettings = { rotationSnaps: [ 0, 90, 180, 270, 360 ] }
+			const transformerSettings = { rotationSnaps: [0, 90, 180, 270, 360] }
 			const tr = new Konva.Transformer(transformerSettings)
 			const layer = shape.getLayer()
 			layer.add(tr)
@@ -92,27 +97,33 @@ class Mime extends Component {
 		}
 	}
 
-	handleShapeTransformData(shape){
+	handleShapeTransformData(shape) {
 		// Return a different newProperties object depending on the shape type
 		// To do: add rotation support to the state and db
-		const newProperties = { x: shape.x(), y: shape.y(), rotation: shape.rotation() }
+		const newProperties = {
+			x: shape.x(),
+			y: shape.y(),
+			rotation: shape.rotation()
+		}
 		switch (shape.className) {
-		case 'Circle':
-			// Multiply the radius by the largest scaled value
-			newProperties.radius = shape.radius() * (shape.scaleX() > shape.scaleY() ? shape.scaleX() : shape.scaleY())
-			break
-		case 'Rect':
-			// Multiply the height and width by the scaled values
-			newProperties.width = shape.width() * shape.scaleX()
-			newProperties.height = shape.height() * shape.scaleY()
-			break
-		default:
-			break
+			case 'Circle':
+				// Multiply the radius by the largest scaled value
+				newProperties.radius =
+					shape.radius() *
+					(shape.scaleX() > shape.scaleY() ? shape.scaleX() : shape.scaleY())
+				break
+			case 'Rect':
+				// Multiply the height and width by the scaled values
+				newProperties.width = shape.width() * shape.scaleX()
+				newProperties.height = shape.height() * shape.scaleY()
+				break
+			default:
+				break
 		}
 		return newProperties
 	}
 
-	handleShapeTransform(shapeFromState, newProperties){
+	handleShapeTransform(shapeFromState, newProperties) {
 		const updatedShape = Object.assign({}, shapeFromState, newProperties)
 		this.props.updateShape(updatedShape)
 		this.props.saveMimeThunk(this.props)
@@ -124,75 +135,75 @@ class Mime extends Component {
 				// Handle any edge cases where radius is negative
 				if (shape.radius < 0) shape.radius *= -1
 				switch (shape.type) {
-				case 'circle': {
-					return (
-						<Layer key={shape.uniqueId}>
-							<Circle
-								name={'shape' + index}
-								key={shape.uniqueId}
-								x={parseInt(shape.x, 10)}
-								y={parseInt(shape.y, 10)}
-								rotation={shape.rotation}
-								radius={parseInt(shape.radius, 10) + 0.01}
-								scaleX='1'
-								scaleY='1'
-								stroke='black'
-								strokeWidth='2'
-								draggable='true'
-								onDragEnd={this.handleDragEnd(shape)}
-								onClick={this.handleAttachTransform(shape)}
-								onDblClick={this.handleShapeDelete(shape)}
-							/>
-						</Layer>
-					)
-				}
-				case 'square': {
-					return (
-						<Layer key={shape.uniqueId}>
-							<Rect
-								name={'shape' + index}
-								key={shape.uniqueId}
-								x={parseInt(shape.x, 10)}
-								y={parseInt(shape.y, 10)}
-								rotation={shape.rotation}
-								width={parseInt(shape.width, 10) + 0.01}
-								height={parseInt(shape.height, 10) + 0.01}
-								scaleX='1'
-								scaleY='1'
-								stroke='black'
-								strokeWidth='2'
-								draggable='true'
-								onDragEnd={this.handleDragEnd(shape)}
-								onClick={this.handleAttachTransform(shape)}
-								onDblClick={this.handleShapeDelete(shape)}
-							/>
-						</Layer>
-					)
-				}
-				case 'triangle': {
-					return (
-						<Layer key={shape.uniqueId}>
-							<RegularPolygon
-								key={shape.uniqueId}
-								name={'shape' + index}
-								x={parseInt(shape.x, 10)}
-								y={parseInt(shape.y, 10)}
-								rotation={shape.rotation}
-								sides={3}
-								radius={parseInt(shape.radius, 10) + 0.01}
-								stroke='black'
-								strokeWidth='2'
-								draggable='true'
-								onDragEnd={this.handleDragEnd(shape)}
-								onClick={this.handleAttachTransform}
-								onDblClick={this.handleShapeDelete}
-							/>
-						</Layer>
-					)
-				}
-				default: {
-					return null
-				}
+					case 'circle': {
+						return (
+							<Layer key={shape.uniqueId}>
+								<Circle
+									name={'shape' + index}
+									key={shape.uniqueId}
+									x={parseInt(shape.x, 10)}
+									y={parseInt(shape.y, 10)}
+									rotation={shape.rotation}
+									radius={parseInt(shape.radius, 10) + 0.01}
+									scaleX="1"
+									scaleY="1"
+									stroke="black"
+									strokeWidth="2"
+									draggable="true"
+									onDragEnd={this.handleDragEnd(shape)}
+									onClick={this.handleAttachTransform(shape)}
+									onDblClick={this.handleShapeDelete(shape)}
+								/>
+							</Layer>
+						)
+					}
+					case 'square': {
+						return (
+							<Layer key={shape.uniqueId}>
+								<Rect
+									name={'shape' + index}
+									key={shape.uniqueId}
+									x={parseInt(shape.x, 10)}
+									y={parseInt(shape.y, 10)}
+									rotation={shape.rotation}
+									width={parseInt(shape.width, 10) + 0.01}
+									height={parseInt(shape.height, 10) + 0.01}
+									scaleX="1"
+									scaleY="1"
+									stroke="black"
+									strokeWidth="2"
+									draggable="true"
+									onDragEnd={this.handleDragEnd(shape)}
+									onClick={this.handleAttachTransform(shape)}
+									onDblClick={this.handleShapeDelete(shape)}
+								/>
+							</Layer>
+						)
+					}
+					case 'triangle': {
+						return (
+							<Layer key={shape.uniqueId}>
+								<RegularPolygon
+									key={shape.uniqueId}
+									name={'shape' + index}
+									x={parseInt(shape.x, 10)}
+									y={parseInt(shape.y, 10)}
+									rotation={shape.rotation}
+									sides={3}
+									radius={parseInt(shape.radius, 10) + 0.01}
+									stroke="black"
+									strokeWidth="2"
+									draggable="true"
+									onDragEnd={this.handleDragEnd(shape)}
+									onClick={this.handleAttachTransform}
+									onDblClick={this.handleShapeDelete}
+								/>
+							</Layer>
+						)
+					}
+					default: {
+						return null
+					}
 				}
 			})
 			return mimeShapes
@@ -201,14 +212,19 @@ class Mime extends Component {
 		}
 	}
 
-	checkWindowSize(){
-		if (window.innerWidth < this.props.width + 60) this.setState({ windowWidthSmallerThanCanvas: true })
+	checkWindowSize() {
+		if (window.innerWidth < this.props.width + 60)
+			this.setState({ windowWidthSmallerThanCanvas: true })
 		else this.setState({ windowWidthSmallerThanCanvas: false })
 	}
 
 	render() {
 		return (
-			<section className={`mime ${this.state.windowWidthSmallerThanCanvas ? null : 'mime--center'}`}>
+			<section
+				className={`mime ${
+					this.state.windowWidthSmallerThanCanvas ? null : 'mime--center'
+				}`}
+			>
 				<Stage
 					width={this.props.width || '768'}
 					height={this.props.height || '1024'}
@@ -217,7 +233,7 @@ class Mime extends Component {
 				>
 					<Layer>
 						<Whiteboard
-							className='mime__whiteboard'
+							className="mime__whiteboard"
 							width={this.props.width || '768'}
 							height={this.props.height || '1024'}
 							urlId={this.props.urlId}
