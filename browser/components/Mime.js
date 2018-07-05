@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Stage, Layer, Circle, Rect, RegularPolygon } from 'react-konva'
 import { connect } from 'react-redux'
 import Whiteboard from './Whiteboard'
-import { updateShape, loadMimeThunk, saveMimeThunk, deleteShape } from '../store/reducers/mimeReducer'
+import { updateShape, loadMimeThunk, saveMimeThunk, deleteShape, setStage } from '../store/reducers/mimeReducer'
 import 'konva'
 import Share from './Share'
 
@@ -27,6 +27,7 @@ class Mime extends Component {
 		window.addEventListener('resize', this.checkWindowSize)
 		this.checkWindowSize()
 
+		this.props.setStage(this.stage)
 		// Load the mime
 		const { urlId } = this.props.match.params
 		try {
@@ -239,7 +240,8 @@ const mapDispatchToProps = {
 	updateShape,
 	loadMimeThunk,
 	saveMimeThunk,
-	deleteShape
+	deleteShape,
+	setStage
 }
 
 export default connect(
