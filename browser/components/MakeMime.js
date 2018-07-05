@@ -35,7 +35,7 @@ class MakeMime extends Component {
 			<form onSubmit={this.handleMimeCreate} className='mime-form'>
 				<div className='mime-form__wrapper'>
 					<label className='mime-form__label' htmlFor='width'>Width (px)</label>
-					<input className='mime-form__input' name='width' onChange={this.handleChange} type='number' placeholder='1080' />
+					<input className='mime-form__input' name='width' onChange={this.handleChange} type='number' placeholder='1280' />
 				</div>
 				<div className='mime-form__wrapper'>
 					<label className='mime-form__label' htmlFor='height'>Height (px)</label>

@@ -143,3 +143,22 @@ a {
 	box-shadow: 0px 0px 14px 5px rgb(0, 0, 0, 0.3);
 	margin: 1em;
 }
+
+/* SVG Aimations for MIME Logo*/
+.circle {
+	stroke-dasharray: 1200;
+	stroke-dashoffset: 1200;
+	animation: dash 5s linear forwards;
+  }
+  
+  @keyframes dash {
+	to {
+	  stroke-dashoffset: 0;
+	}
+  }
+
+  .square {
+	stroke-dasharray: 1500;
+	stroke-dashoffset: 1500;
+	animation: dash 5s linear forwards;
+  }
