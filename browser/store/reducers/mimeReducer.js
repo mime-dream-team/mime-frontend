@@ -7,6 +7,7 @@ const SAVE_MIME = 'SAVE_MIME'
 const ADD_NEW_SHAPE = 'ADD_NEW_SHAPE'
 const DELETE_SHAPE = 'DELETE_SHAPE'
 const UPDATE_SHAPE = 'UPDATE_SHAPE'
+const SET_STAGE = 'SET_STAGE'
 
 // Action creators
 export const createMime = (mime) => {
@@ -31,6 +32,10 @@ export const deleteShape = (deletedShape) => {
 
 export const updateShape = (updatedShape) => {
 	return { type: UPDATE_SHAPE, updatedShape }
+}
+
+export const setStage = (stage) => {
+	return { type: SET_STAGE, stage }
 }
 
 // Thunks
@@ -72,7 +77,8 @@ const initialState = {
 	shapes: [],
 	height: '',
 	width: '',
-	lastSave: ''
+	lastSave: '',
+	stage: {}
 }
 
 // Reducer
@@ -92,7 +98,8 @@ const reducer = (state = initialState, action) => {
 			urlId: action.mime.urlId,
 			shapes: action.mime.shapes,
 			height: action.mime.height,
-			width: action.mime.width
+			width: action.mime.width,
+			stage: state.stage
 		}
 	case SAVE_MIME:
 		return Object.assign({}, state, { lastSave: action.time })
@@ -117,6 +124,8 @@ const reducer = (state = initialState, action) => {
 				action.updatedShape
 			]
 		})
+	case SET_STAGE:
+		return Object.assign({}, state, {stage: action.stage})
 	default:
 		return state
 	}

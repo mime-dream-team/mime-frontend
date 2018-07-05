@@ -6,7 +6,8 @@ import {
 	updateShape,
 	loadMimeThunk,
 	saveMimeThunk,
-	deleteShape
+	deleteShape,
+	setStage
 } from '../store/reducers/mimeReducer'
 import 'konva'
 import Share from './Share'
@@ -32,6 +33,7 @@ class Mime extends Component {
 		window.addEventListener('resize', this.checkWindowSize)
 		this.checkWindowSize()
 
+		this.props.setStage(this.stage)
 		// Load the mime
 		const { urlId } = this.props.match.params
 		try {
@@ -255,7 +257,8 @@ const mapDispatchToProps = {
 	updateShape,
 	loadMimeThunk,
 	saveMimeThunk,
-	deleteShape
+	deleteShape,
+	setStage
 }
 
 export default connect(

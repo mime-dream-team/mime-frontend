@@ -11,8 +11,8 @@
 	"author": "lizz thabet",
 	"license": "ISC",
 	"dependencies": {
-		"@fortawesome/fontawesome-svg-core": "^1.2.0-14",
-		"@fortawesome/free-solid-svg-icons": "^5.1.0-11",
+		"@fortawesome/fontawesome-svg-core": "^1.2.0",
+		"@fortawesome/free-solid-svg-icons": "^5.1.0",
 		"@fortawesome/react-fontawesome": "0.1.0-11",
 		"@tensorflow/tfjs": "^0.11.7",
 		"@tensorflow/tfjs-node": "^0.1.7",
