@@ -5,6 +5,7 @@ const { Mime } = require('../db')
 const indexOfMax = require('./../utils/indexOfMax')
 
 module.exports = io => {
+	console.log("server/socket/index.js")
 	io.on('connection', socket => {
 		console.log(socket.id, ' has made a persistent connection to the server!')
 
