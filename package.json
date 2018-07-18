@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "node server/start.js",
+		"start": "webpack & node server/start.js",
 		"start:dev": "webpack -w & nodemon server/start.js",
 		"test": "mocha ./tests/*.test.js --compilers js:babel-register --watch"
 	},
