@@ -12,9 +12,6 @@ app.use(bodyParser.urlencoded({ extended: true })) // urlencoded parsing middlew
 
 app.use(express.static(path.join(__dirname, '../public'))) // serve public files
 
-// routes
-app.use('/mimes', require('./routes'))
-
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../public/index.html'))
 })

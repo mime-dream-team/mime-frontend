@@ -1,18 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
-import { Router } from 'react-router-dom'
-import history from './routes/history'
-import store from './store/store'
-import Root from './Root'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/main.css'
+import Home from './components/Home'
 
 ReactDOM.render(
-	<Provider store={store}>
-		<Router history={history}>
-			<Root />
-		</Router>
-	</Provider>,
+	<Home />,
 	document.getElementById('app')
 )
