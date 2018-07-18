@@ -11,9 +11,10 @@ const Home = (props) => {
 					<header className='home__header'>
 						<Logo />
 					</header>
-					<p className='home__intro'><span className='underline'>Mime</span> is a simple, easy-to-use wireframing tool. It uses a drawing assistant AI to transform your hand-drawn sketches into clean rectangles, circles, and lines in real-time. Like magic!</p>
-					<p className='home__intro'>Get started by entering the size of your wireframe.</p>
-					<MakeMime history={ props.history } />
+					<p className='home__intro'><span className='underline'>Mime</span> is an easy-to-use, minimalist wireframing tool. As you sketch, your hand-drawn circles and rectangles are transformed into clean shapes in real-time. Like magic!</p>
+					{/* <p className='home__intro'>Get started by entering the size of your wireframe.</p>
+					<MakeMime history={ props.history } /> */}
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/HG2ZZigbxG0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 				</Col>
 			</Row>
 		</Container>

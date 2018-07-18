@@ -7,7 +7,7 @@ const Routes = () => {
 	return (
 		<Switch>
 			<Route exact path='/' component={ Home } />
-			<Route exact path='/mime/:urlId' component={ MimeView } />
+			{/* <Route exact path='/mime/:urlId' component={ MimeView } /> */}
 			<Route component={ Home } />
 		</Switch>
 	)
