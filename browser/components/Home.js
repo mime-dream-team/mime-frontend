@@ -11,7 +11,9 @@ const Home = (props) => {
 						<Logo />
 					</header>
 					<p className='home__intro'><span className='underline'>Mime</span> is an easy-to-use, minimalist wireframing tool. As you sketch, your hand-drawn circles and rectangles are transformed into clean shapes in real-time. Like magic!</p>
-					<iframe width="560" height="315" src="https://www.youtube.com/embed/HG2ZZigbxG0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+					<figure className="embed-responsive embed-responsive-16by9">
+						<iframe className="embed-responsive-item" src="https://www.youtube.com/embed/HG2ZZigbxG0" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
+					</figure>
 				</Col>
 			</Row>
 		</Container>
