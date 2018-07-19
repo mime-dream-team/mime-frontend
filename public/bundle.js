@@ -140,7 +140,34 @@ var Home = function Home(props) {
 				_react2.default.createElement(
 					'figure',
 					{ className: 'embed-responsive embed-responsive-16by9' },
-					_react2.default.createElement('iframe', { className: 'embed-responsive-item', src: 'https://www.youtube.com/embed/HG2ZZigbxG0', frameBorder: '0', allow: 'autoplay; encrypted-media', allowFullScreen: true })
+					_react2.default.createElement('iframe', {
+						className: 'embed-responsive-item',
+						src: 'https://www.youtube.com/embed/HG2ZZigbxG0',
+						frameBorder: '0',
+						allow: 'autoplay; encrypted-media',
+						allowFullScreen: true
+					})
+				),
+				_react2.default.createElement(
+					'p',
+					{ className: 'home__stack' },
+					'Mime runs on a NERD stack: Node, Express, React/Redux and a SQL database. It uses its own custom-built TensorFlow.js model to identify the shape of your drawings. React-Konva, a robust canvas library, provides the drawing tools and movable shapes. Touch support for tablets and iPads is in beta.'
+				),
+				_react2.default.createElement(
+					'p',
+					{ className: 'home__stack' },
+					'Watch the video above for a walkthrough by Mime\'s creators.'
+				),
+				_react2.default.createElement(
+					'p',
+					{ className: 'home__stack' },
+					'  View the codebase on ',
+					_react2.default.createElement(
+						'a',
+						{ href: 'https://github.com/mime-dream-team/mime-frontend' },
+						'GitHub'
+					),
+					'.'
 				)
 			)
 		)
@@ -365,7 +392,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Inconsolata:400,700);", ""]);
 
 // module
-exports.push([module.i, "/* colors\ncyan: rgb(0, 217, 217)\nyellow: rgb(217, 217, 0)\nmagenta: rgb(217, 0, 217)\n */\n\nbody {\n\tbackground-color: #f9f9f9;\n\tcolor: #333333;\n\tfont-family: 'Inconsolata', monospace;\n\tmargin: 0;\n\tpadding: 0;\n}\n\n/* Container styles */\n\n.container-fluid {\n\tpadding: 0;\n}\n\n/* Paragraph and heading styles */\n\n.home__header {\n\tmargin-top: 60px;\n}\n\n.home__nameplate {\n\tfont-size: 6rem;\n}\n\n.home__intro {\n\tfont-size: 1.75rem;\n}\n\n.underline {\n\ttext-decoration: underline;\n}\n\n.mime-form {\n\talign-items: flex-end;\n\tdisplay: flex;\n\tflex-direction: row;\n\tflex-wrap: wrap;\n\tjustify-content: center;\n\tmargin: 30px 0 60px 0;\n}\n\n.mime-form__wrapper {\n\tdisplay: flex;\n\tflex-direction: column;\n\tflex-wrap: wrap;\n\tmargin: 0 7px;\n}\n\n.mime-form__input, .mime-form__label {\n\tfont-size: 1.50rem;\n}\n\n.mime-form__input {\n\tpadding: 7px;\n}\n\na {\n\tcolor: rgb(217, 0, 217);\n\ttransition: all 0.3s ease;\n}\n\n/* Nav styles */\n\n.nav {\n\tfont-size: 1.3rem;\n}\n\n.nav__name {\n\ttext-transform: uppercase;\n}\n\n.nav__button {\n\tbackground-color: transparent;\n\tborder: none;\n\tcolor: rgb(217, 0, 217);\n\tcursor: pointer;\n\tmargin: 0 7px;\n\ttransition: all 0.3s ease;\n}\n\n.nav__button:hover, .navbar-brand:hover {\n\tcolor: rgb(0, 217, 217);\n}\n\n.nav__last-saved {\n\tcolor: rgb(217, 0, 217);\n\tmargin-bottom: 0;\n}\n\n/* Button styles */\n\n.button {\n\tbackground-color: rgb(0, 217, 217);\n\tborder: none;\n\tborder-radius: 10px;\n\tfont-size: 1.50rem;\n\tpadding: 12px 20px;\n\tmargin: 30px 15px 0 15px;\n\ttransition: all 0.3s ease;\n}\n\n.button:hover {\n\tbox-shadow: 8px 8px 0 0 rgb(217, 0, 217), 16px 16px 0 0 rgb(217, 217, 0);\n\tcursor: pointer;\n}\n\n.button--extra-margin {\n\tmargin: 30px 50px 0 50px;\n}\n\n/* MIME section container styles */\n\n.mime {\n\talign-items: center;\n\tdisplay: flex;\n\tpadding: 30px;\n\toverflow: scroll;\n}\n\n.mime--center {\n\tjustify-content: safe center;\n}\n\n/* MIME component styles */\n\n.konvajs-content {\n\t-webkit-box-shadow: 0px 0px 14px 5px rgba(204,204,204,1);\n\t-moz-box-shadow: 0px 0px 14px 5px rgba(204,204,204,1);\n\talign-self: flex-start;\n\tbackground-color: rgba(255, 255, 255, 0.95);\n  background-image:linear-gradient(0deg, transparent 24%, rgba(0, 0, 0, .05) 25%, rgba(0, 0, 0, .05) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .05) 75%, rgba(0, 0, 0, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(0, 0, 0, .05) 25%, rgba(0, 0, 0, .05) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .05) 75%, rgba(0, 0, 0, .05) 76%, transparent 77%, transparent);\n\theight: 100%;\n\tbackground-position: left top;\n  background-size: 50px 50px;\n\tbox-shadow: 0px 0px 14px 5px rgb(0, 0, 0, 0.3);\n\tmargin: 1em;\n}\n\n/* SVG Aimations for MIME Logo*/\n.circle {\n\tstroke-dasharray: 1200;\n\tstroke-dashoffset: 1200;\n\tanimation: dash 5s linear forwards;\n  }\n  \n  @keyframes dash {\n\tto {\n\t  stroke-dashoffset: 0;\n\t}\n  }\n\n  .square {\n\tstroke-dasharray: 1500;\n\tstroke-dashoffset: 1500;\n\tanimation: dash 5s linear forwards;\n  }\n", ""]);
+exports.push([module.i, "/* colors\ncyan: rgb(0, 217, 217)\nyellow: rgb(217, 217, 0)\nmagenta: rgb(217, 0, 217)\n */\n\nbody {\n\tbackground-color: #f9f9f9;\n\tcolor: #333333;\n\tfont-family: 'Inconsolata', monospace;\n\tmargin: 0;\n\tpadding: 0;\n}\n\n/* Container styles */\n\n.container-fluid {\n\tpadding: 0;\n}\n\n/* Paragraph and heading styles */\n\n.home__header {\n\tmargin-top: 60px;\n\tmargin-bottom: 30px;\n}\n\n.home__nameplate {\n\tfont-size: 6rem;\n}\n\n.home__intro, .home__stack {\n\tfont-size: 1.75rem;\n\tmargin-bottom: 30px;\n}\n\n.underline {\n\ttext-decoration: underline;\n}\n\n.mime-form {\n\talign-items: flex-end;\n\tdisplay: flex;\n\tflex-direction: row;\n\tflex-wrap: wrap;\n\tjustify-content: center;\n\tmargin: 30px 0 60px 0;\n}\n\n.mime-form__wrapper {\n\tdisplay: flex;\n\tflex-direction: column;\n\tflex-wrap: wrap;\n\tmargin: 0 7px;\n}\n\n.mime-form__input,\n.mime-form__label {\n\tfont-size: 1.5rem;\n}\n\n.mime-form__input {\n\tpadding: 7px;\n}\n\na {\n\tcolor: rgb(217, 0, 217);\n\ttransition: all 0.3s ease;\n}\n\n/* Nav styles */\n\n.nav {\n\tfont-size: 1.3rem;\n}\n\n.nav__name {\n\ttext-transform: uppercase;\n}\n\n.nav__button {\n\tbackground-color: transparent;\n\tborder: none;\n\tcolor: rgb(217, 0, 217);\n\tcursor: pointer;\n\tmargin: 0 7px;\n\ttransition: all 0.3s ease;\n}\n\n.nav__button:hover,\n.navbar-brand:hover,\na:hover {\n\tcolor: rgb(0, 217, 217);\n}\n\n.nav__last-saved {\n\tcolor: rgb(217, 0, 217);\n\tmargin-bottom: 0;\n}\n\n/* Button styles */\n\n.button {\n\tbackground-color: rgb(0, 217, 217);\n\tborder: none;\n\tborder-radius: 10px;\n\tfont-size: 1.5rem;\n\tpadding: 12px 20px;\n\tmargin: 30px 15px 0 15px;\n\ttransition: all 0.3s ease;\n}\n\n.button:hover {\n\tbox-shadow: 8px 8px 0 0 rgb(217, 0, 217), 16px 16px 0 0 rgb(217, 217, 0);\n\tcursor: pointer;\n}\n\n.button--extra-margin {\n\tmargin: 30px 50px 0 50px;\n}\n\n/* MIME section container styles */\n\n.mime {\n\talign-items: center;\n\tdisplay: flex;\n\tpadding: 30px;\n\toverflow: scroll;\n}\n\n.mime--center {\n\tjustify-content: safe center;\n}\n\n/* MIME component styles */\n\n.konvajs-content {\n\t-webkit-box-shadow: 0px 0px 14px 5px rgba(204, 204, 204, 1);\n\t-moz-box-shadow: 0px 0px 14px 5px rgba(204, 204, 204, 1);\n\talign-self: flex-start;\n\tbackground-color: rgba(255, 255, 255, 0.95);\n\tbackground-image: linear-gradient(\n\t\t\t0deg,\n\t\t\ttransparent 24%,\n\t\t\trgba(0, 0, 0, 0.05) 25%,\n\t\t\trgba(0, 0, 0, 0.05) 26%,\n\t\t\ttransparent 27%,\n\t\t\ttransparent 74%,\n\t\t\trgba(0, 0, 0, 0.05) 75%,\n\t\t\trgba(0, 0, 0, 0.05) 76%,\n\t\t\ttransparent 77%,\n\t\t\ttransparent\n\t\t),\n\t\tlinear-gradient(\n\t\t\t90deg,\n\t\t\ttransparent 24%,\n\t\t\trgba(0, 0, 0, 0.05) 25%,\n\t\t\trgba(0, 0, 0, 0.05) 26%,\n\t\t\ttransparent 27%,\n\t\t\ttransparent 74%,\n\t\t\trgba(0, 0, 0, 0.05) 75%,\n\t\t\trgba(0, 0, 0, 0.05) 76%,\n\t\t\ttransparent 77%,\n\t\t\ttransparent\n\t\t);\n\theight: 100%;\n\tbackground-position: left top;\n\tbackground-size: 50px 50px;\n\tbox-shadow: 0px 0px 14px 5px rgb(0, 0, 0, 0.3);\n\tmargin: 1em;\n}\n\n/* SVG Aimations for MIME Logo*/\n.circle {\n\tstroke-dasharray: 1200;\n\tstroke-dashoffset: 1200;\n\tanimation: dash 5s linear forwards;\n}\n\n@keyframes dash {\n\tto {\n\t\tstroke-dashoffset: 0;\n\t}\n}\n\n.square {\n\tstroke-dasharray: 1500;\n\tstroke-dashoffset: 1500;\n\tanimation: dash 5s linear forwards;\n}\n", ""]);
 
 // exports
 
