@@ -33,7 +33,9 @@ body {
 .home__intro {
 	font-size: 1.75rem;
 }
-
+.home__stack {
+	font-size: 1rem;
+}
 .underline {
 	text-decoration: underline;
 }
@@ -54,8 +56,9 @@ body {
 	margin: 0 7px;
 }
 
-.mime-form__input, .mime-form__label {
-	font-size: 1.50rem;
+.mime-form__input,
+.mime-form__label {
+	font-size: 1.5rem;
 }
 
 .mime-form__input {
@@ -86,7 +89,8 @@ a {
 	transition: all 0.3s ease;
 }
 
-.nav__button:hover, .navbar-brand:hover {
+.nav__button:hover,
+.navbar-brand:hover {
 	color: rgb(0, 217, 217);
 }
 
@@ -101,7 +105,7 @@ a {
 	background-color: rgb(0, 217, 217);
 	border: none;
 	border-radius: 10px;
-	font-size: 1.50rem;
+	font-size: 1.5rem;
 	padding: 12px 20px;
 	margin: 30px 15px 0 15px;
 	transition: all 0.3s ease;
@@ -132,14 +136,37 @@ a {
 /* MIME component styles */
 
 .konvajs-content {
-	-webkit-box-shadow: 0px 0px 14px 5px rgba(204,204,204,1);
-	-moz-box-shadow: 0px 0px 14px 5px rgba(204,204,204,1);
+	-webkit-box-shadow: 0px 0px 14px 5px rgba(204, 204, 204, 1);
+	-moz-box-shadow: 0px 0px 14px 5px rgba(204, 204, 204, 1);
 	align-self: flex-start;
 	background-color: rgba(255, 255, 255, 0.95);
-  background-image:linear-gradient(0deg, transparent 24%, rgba(0, 0, 0, .05) 25%, rgba(0, 0, 0, .05) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .05) 75%, rgba(0, 0, 0, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(0, 0, 0, .05) 25%, rgba(0, 0, 0, .05) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .05) 75%, rgba(0, 0, 0, .05) 76%, transparent 77%, transparent);
+	background-image: linear-gradient(
+			0deg,
+			transparent 24%,
+			rgba(0, 0, 0, 0.05) 25%,
+			rgba(0, 0, 0, 0.05) 26%,
+			transparent 27%,
+			transparent 74%,
+			rgba(0, 0, 0, 0.05) 75%,
+			rgba(0, 0, 0, 0.05) 76%,
+			transparent 77%,
+			transparent
+		),
+		linear-gradient(
+			90deg,
+			transparent 24%,
+			rgba(0, 0, 0, 0.05) 25%,
+			rgba(0, 0, 0, 0.05) 26%,
+			transparent 27%,
+			transparent 74%,
+			rgba(0, 0, 0, 0.05) 75%,
+			rgba(0, 0, 0, 0.05) 76%,
+			transparent 77%,
+			transparent
+		);
 	height: 100%;
 	background-position: left top;
-  background-size: 50px 50px;
+	background-size: 50px 50px;
 	box-shadow: 0px 0px 14px 5px rgb(0, 0, 0, 0.3);
 	margin: 1em;
 }
@@ -149,16 +176,16 @@ a {
 	stroke-dasharray: 1200;
 	stroke-dashoffset: 1200;
 	animation: dash 5s linear forwards;
-  }
-  
-  @keyframes dash {
-	to {
-	  stroke-dashoffset: 0;
-	}
-  }
+}
 
-  .square {
+@keyframes dash {
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+
+.square {
 	stroke-dasharray: 1500;
 	stroke-dashoffset: 1500;
 	animation: dash 5s linear forwards;
-  }
+}
