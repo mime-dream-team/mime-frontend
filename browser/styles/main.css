@@ -24,18 +24,18 @@ body {
 
 .home__header {
 	margin-top: 60px;
+	margin-bottom: 30px;
 }
 
 .home__nameplate {
 	font-size: 6rem;
 }
 
-.home__intro {
+.home__intro, .home__stack {
 	font-size: 1.75rem;
+	margin-bottom: 30px;
 }
-.home__stack {
-	font-size: 1rem;
-}
+
 .underline {
 	text-decoration: underline;
 }
@@ -90,7 +90,8 @@ a {
 }
 
 .nav__button:hover,
-.navbar-brand:hover {
+.navbar-brand:hover,
+a:hover {
 	color: rgb(0, 217, 217);
 }
 
