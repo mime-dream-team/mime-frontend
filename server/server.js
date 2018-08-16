@@ -1,11 +1,7 @@
 const express = require('express')
-const morgan = require('morgan')
 const path = require('path')
 const bodyParser = require('body-parser')
 const app = express()
-
-// dev tools and parsing
-app.use(morgan('dev')) // logging middleware
 
 app.use(bodyParser.json()) // json parsing middleware
 app.use(bodyParser.urlencoded({ extended: true })) // urlencoded parsing middleware
