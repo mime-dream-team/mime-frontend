@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "yarn rebuild @tensorflow/tfjs-node && node server/start.js",
+		"start": "npm rebuild @tensorflow/tfjs-node && node server/start.js",
 		"start:dev": "webpack -w & nodemon server/start.js",
 		"postinstall": "yarn upgrade --pattern @tensorflow"
 	},
