@@ -30,7 +30,6 @@ class MakeMime extends Component {
 	}
 
 	render() {
-		console.log(this.state.height, this.state.width)
 		return (
 			<div>
 				<input name="width" onChange={this.handleChange} />

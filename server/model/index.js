@@ -1,12 +1,12 @@
 const tf = require('@tensorflow/tfjs')
-console.log("tensorflow, tf: ", tf)
-console.log("server/model/index before require tfjs-node")
+// console.log("tensorflow, tf: ", tf)
+// console.log("server/model/index before require tfjs-node")
 require('@tensorflow/tfjs-node')
-console.log("server/model/index after require tfjs-node")
+// console.log("server/model/index after require tfjs-node")
 require('./shape-recognition.json');
-console.log("server/model/index before setBackend")
+// console.log("server/model/index before setBackend")
 tf.setBackend('cpu')
-console.log("server/model/index after setBackend")
+// console.log("server/model/index after setBackend")
 
 const processTrainingData = require('./../utils/dataTransforms/processTrainingData')
 
