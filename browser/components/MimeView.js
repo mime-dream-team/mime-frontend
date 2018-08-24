@@ -5,7 +5,7 @@ import Navigation from './Nav'
 
 const MimeView = (props) => {
 	return (
-		<Container fluid={true}>
+		<Container fluid={true} className='fluid--no-padding'>
 			<Navigation {...props} />
 			<Row>
 				<Col xs='12'>

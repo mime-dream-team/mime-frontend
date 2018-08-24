@@ -5,7 +5,6 @@ import { addNewShape, saveMime } from './store/reducers/mimeReducer'
 const socket = io(window.location.origin)
 
 socket.on('connect', () => {
-	console.log('I am now connected to the server!')
 
 	socket.on('addNewShape', interpretedShape => {
 		store.dispatch(addNewShape(interpretedShape))

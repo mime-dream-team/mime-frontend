@@ -14,12 +14,6 @@ body {
 	padding: 0;
 }
 
-/* Container styles */
-
-.container-fluid {
-	padding: 0;
-}
-
 /* Paragraph and heading styles */
 
 .home__header {
@@ -30,8 +24,16 @@ body {
 	font-size: 6rem;
 }
 
-.home__intro {
+.home__intro, .home__about {
 	font-size: 1.75rem;
+}
+
+.home__intro--top, .home__about--top {
+	margin-top: 60px;
+}
+
+.home__about--bottom {
+	margin-bottom: 90px;
 }
 
 .underline {
@@ -44,7 +46,7 @@ body {
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
-	margin: 30px 0 60px 0;
+	margin-top: 30px;
 }
 
 .mime-form__wrapper {
@@ -86,7 +88,7 @@ a {
 	transition: all 0.3s ease;
 }
 
-.nav__button:hover, .navbar-brand:hover {
+.nav__button:hover, .navbar-brand:hover, a:hover {
 	color: rgb(0, 217, 217);
 }
 
@@ -117,6 +119,10 @@ a {
 }
 
 /* MIME section container styles */
+
+.fluid--no-padding {
+	padding: 0;
+}
 
 .mime {
 	align-items: center;
