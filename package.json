@@ -1,7 +1,7 @@
 {
 	"name": "mime-frontend",
 	"version": "0.1.0",
-	"description": "",
+	"description": "Mime is a simple, easy-to-use wireframing tool powered by machine learning. It uses a drawing assistant AI to transform your hand-drawn sketches into clean rectangles, circles, and lines in real-time. Like magic!",
 	"main": "index.js",
 	"engines": {
 		"node": ">=10.4.0",
