@@ -3,6 +3,10 @@
 	"version": "0.1.0",
 	"description": "",
 	"main": "index.js",
+	"engines": {
+		"node": ">=10.4.0",
+		"yarn": ">=1.9.4"
+	},
 	"scripts": {
 		"start": "npm rebuild @tensorflow/tfjs-node && node server/start.js",
 		"start:dev": "webpack -w & nodemon server/start.js",
