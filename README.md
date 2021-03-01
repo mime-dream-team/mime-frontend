@@ -6,4 +6,6 @@ Our application is powered by a TensorFlow.js (TF) model that we trained to reco
 
 Each wireframe is automatically saved to a PostgreSQL database and accessible through a unique URL. Touch support is beta. 
 
+Presentation: https://www.youtube.com/watch?t=33&v=HG2ZZigbxG0&feature=youtu.be
+
 Mime is built by [Ivan Felix](https://github.com/ivanfex), [Chiara Marcial Martínez](https://github.com/cofuente), and [Lizz Thabet](https://github.com/lizzthabet).

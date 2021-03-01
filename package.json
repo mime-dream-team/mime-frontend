@@ -43,6 +43,7 @@
 		"sequelize": "^4.37.10",
 		"socket.io": "^2.1.1",
 		"socket.io-client": "^2.1.1",
+		"sqlite3": "^5.0.2",
 		"uniqid": "^5.0.3"
 	},
 	"devDependencies": {
@@ -68,6 +69,6 @@
 		"style-loader": "^0.21.0",
 		"supertest": "^3.1.0",
 		"webpack": "^4.14.0",
-		"webpack-cli": "^2.1.4"
+		"webpack-cli": "^3.3.11"
 	}
 }
