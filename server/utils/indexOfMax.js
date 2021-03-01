@@ -1,5 +1,5 @@
 const indexOfMax = (arr) => {
-	if (arr.length === 0) {
+	if (!arr || arr.length === 0) {
 		return -1;
 	}
 
